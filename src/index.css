@@ -1,1 +1,25 @@
 @import 'tailwindcss';
+
+@layer base{
+  *{
+    font-family: "inter",sans-serif;
+  }
+}
+
+@theme{
+  --color-HoverO: #FF5F2214;
+  --color-whiteigma: #FFFFFFE5;
+  --color-orangeFigma: #FF5F22;
+}
+
+@utility hover{
+  @apply bg-HoverO text-orange-600 py-1 px-2 rounded-xl cursor-pointer;
+}
+
+@utility veryCenter{
+  @apply flex justify-center items-center
+}
+
+@utility btnBordColor{
+  @apply veryCenter bg-orangeFigma text-[#FFFFFF] rounded-xl cursor-pointer
+}
