@@ -3,7 +3,7 @@ import calendar from '../assets/calender.svg'
 import location from '../assets/location.svg'
 import users from '../assets/users.svg'
 
-export default function CardEvent({ event }) {
+export default function CardEvent({ event, isShow }) {
   return (
     <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white border-borderClr border-2 transition duration-300 hover:-translate-y-2">
       <div className="relative">
@@ -63,7 +63,9 @@ export default function CardEvent({ event }) {
         </div>
         <div className="flex gap-2">
 
-          <button className="btnBordColor w-full hover:hover">
+          <button className="btnBordColor w-full hover:hover"
+          onClick={()=>isShow(true)}
+          >
             Join Event
           </button>
 

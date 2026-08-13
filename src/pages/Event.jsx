@@ -2,10 +2,17 @@ import search from '../assets/search.svg'
 import filter from '../assets/filter.svg'
 import CardEvents from '../components/CardEvent.jsx'
 import Events from '../lib/dummyEvent.js'
+import { useState } from 'react'
+import Modal from '../components/Modal.jsx'
 
 export default function Event() {
+    const [isShow,setIsShow] = useState(false)
+    
+
   return (
     <>
+    <Modal show={isShow} setShow={setIsShow}/>
+    
     <header className="veryCenter px-14 py-5 shadow-xl gap-4">
         <label className='veryCenter w-full bg-borderClr p-2 rounded-2xl'>
             <img src={search} alt="search" className='h-7 w-7'/>
@@ -22,7 +29,7 @@ export default function Event() {
             <span className='font-bold'>{Events.length} </span><span>events found</span>
         </div>
         <div className='grid grid-cols-3 gap-3'>
-            {Events.map((v)=>(<CardEvents key={v.id} event={v}></CardEvents>))}     
+            {Events.map((v)=>(<CardEvents key={v.id} event={v} isShow={setIsShow}/>))}     
         </div>
         <div className='veryCenter'>
                 <div className='myBorder mt-10 w-fit veryCenter hover:hover hover:border-orangeFigma'>

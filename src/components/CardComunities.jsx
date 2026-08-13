@@ -1,8 +1,10 @@
 import users from '../assets/users.svg'
 import calendar from '../assets/calender.svg'
 
-export default function CardComunities({Comunities}) {
+export default function CardComunities({Comunities, setShow}) {
+
   return (
+    <>
     <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white border-borderClr border-2 transition duration-300 hover:-translate-y-2">
       <div className=" relative">
         <img 
@@ -47,8 +49,11 @@ export default function CardComunities({Comunities}) {
       </div>
 
       <div className='p-2'>
-        <button className=' btnBordColor w-full hover:bg-green-400'>Join Community</button>
+        <button className=' btnBordColor w-full hover:bg-green-400'
+        onClick={(()=>setShow(true))}
+        >Join Community</button>
       </div>
     </div>
+    </>
   )
 }

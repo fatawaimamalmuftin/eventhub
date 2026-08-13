@@ -2,6 +2,7 @@ import { useState } from 'react';
 import search from '../assets/search.svg'
 import Comunity from '../lib/dummyComunity';
 import CardComunities from '../components/CardComunities';
+import Modal from '../components/Modal';
 
 const radioBtn1 = ['All','Joined','Not Joined']
 
@@ -11,9 +12,13 @@ export default function Communities() {
 
     const [status, setStatus] = useState("All");
     const [category, setCategory] = useState("All Categories");
+    const [isShow,setIsShow] = useState(false)
+
 
   return (
     <>
+        <Modal show={isShow} setShow={setIsShow}/>
+
         <header className="borderFooter w-full px-90 mx-0 rounded-none">
             <div className="font-bold text-4xl">
                 Explore Communities
@@ -83,7 +88,7 @@ export default function Communities() {
         </main>
 
         <section className='grid grid-cols-4 gap-3 px-14 mb-5'>
-            {Comunity.map((v)=><CardComunities key={v.id} Comunities={v}/>)}
+            {Comunity.map((v)=><CardComunities key={v.id} Comunities={v} setShow={setIsShow}/>)}
         </section>
 
     </>
