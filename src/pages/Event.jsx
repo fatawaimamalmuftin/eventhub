@@ -1,5 +1,7 @@
 import search from '../assets/search.svg'
 import filter from '../assets/filter.svg'
+import Card from '../components/Card.jsx'
+import Events from '../lib/dummy.js'
 
 export default function Event() {
   return (
@@ -20,18 +22,10 @@ export default function Event() {
             <span className='font-bold'>10 </span><span>events found</span>
         </div>
         <div className='grid grid-cols-3 gap-3'>
-            <div>a</div>
-            <div>a</div>
-            <div>a</div>
-            <div>a</div>
-            <div>a</div>
-            <div>a</div>
-            <div>a</div>
-            <div>a</div>
-            <div>a</div>            
+            {Events.map((v)=>(<Card key={v.id} event={v}></Card>))}     
         </div>
         <div className='px-150'>
-            <div className='myBorder veryCenter hover:hover hover:border-orangeFigma'>
+            <div className='myBorder mt-10 veryCenter hover:hover hover:border-orangeFigma'>
                 Load more events
             </div>
         </div>
