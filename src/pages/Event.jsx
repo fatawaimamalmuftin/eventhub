@@ -18,7 +18,7 @@ export default function Event() {
         </div>
     </header>
     <main className="mainEvent">
-        <div>
+        <div className='myBorder w-40 my-8 hover:hover'>
             <span className='font-bold'>10 </span><span>events found</span>
         </div>
         <div className='grid grid-cols-3 gap-3'>
