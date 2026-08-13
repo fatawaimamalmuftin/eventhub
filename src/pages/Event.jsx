@@ -1,7 +1,7 @@
 import search from '../assets/search.svg'
 import filter from '../assets/filter.svg'
 import CardEvents from '../components/CardEvent.jsx'
-import Events from '../lib/dummy.js'
+import Events from '../lib/dummyEvent.js'
 
 export default function Event() {
   return (
@@ -19,7 +19,7 @@ export default function Event() {
     </header>
     <main className="mainEvent">
         <div className='myBorder w-40 my-8 hover:hover'>
-            <span className='font-bold'>10 </span><span>events found</span>
+            <span className='font-bold'>{Events.length} </span><span>events found</span>
         </div>
         <div className='grid grid-cols-3 gap-3'>
             {Events.map((v)=>(<CardEvents key={v.id} event={v}></CardEvents>))}     
