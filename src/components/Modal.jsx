@@ -13,11 +13,11 @@ export default function Modal({show,setShow}) {
   return (
     <div className={
         show ? 
-        "veryCenter z-3 w-screen h-screen bg-black/50 fixed" 
+        "flex justify-center z-3 w-screen h-screen bg-black/50 fixed" 
         : "hidden"}
         onClick={()=>setShow(false)}
     >
-        <div className="bg-white max-w-118 rounded-2xl">
+        <div className="bg-white max-w-118 rounded-2xl mb-auto mt-30">
             <div className='veryCenter border-b-2 border-gray-300 p-5'>
                 <div className='font-semibold'>Sign in to continue</div>
                 <div className='ml-auto cursor-pointer hover:text-red-500'
