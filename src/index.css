@@ -17,10 +17,11 @@
   --color-bgUnguFigma: #F3E8FF;  
   --color-trFooter: #9F9FA9;
   --color-transprn: #3F3F47;
+  --color-borderClr: #E4E4E7;
 }
 
 @utility hover{
-  @apply bg-HoverO text-orange-600 py-1 px-2 rounded-xl cursor-pointer;
+  @apply bg-HoverO text-orange-600 rounded-xl cursor-pointer;
 }
 
 @utility veryCenter{
@@ -28,17 +29,21 @@
 }
 
 @utility btnBordColor{
-  @apply veryCenter bg-orangeFigma text-[#FFFFFF] rounded-xl cursor-pointer py-1 px-2
+  @apply veryCenter bg-orangeFigma text-[#FFFFFF] rounded-xl cursor-pointer py-2 px-4
 }
 
 @utility btnTr{
-  @apply veryCenter border-2 border-transprn text-transprn rounded-xl cursor-pointer py-1 px-2
+  @apply veryCenter border-2 border-transprn text-transprn rounded-xl cursor-pointer py-2 px-4
 }
 
 @utility borderFooter{
-  @apply veryCenter flex-col m-14 bg-hitamFigma rounded-2xl text-whiteFigma py-12 gap-5
+  @apply veryCenter flex-col mx-15 mb-10 bg-hitamFigma rounded-2xl text-whiteFigma py-12 gap-5
 }
 
-@utility borderCus{
-  @apply border-0
+@utility mainEvent{
+  @apply px-15 py-5
+}
+
+@utility myBorder{
+  @apply border-2 border-borderClr py-2 px-4 rounded-xl cursor-pointer
 }
