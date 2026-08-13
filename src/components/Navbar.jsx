@@ -2,7 +2,7 @@ import moon from '../assets/moon.svg'
 
 export default function Navbar() {
   return (
-    <nav className="veryCenter gap-8 py-4 px-8 bg-whiteFigma shadow-xl">
+    <nav className="veryCenter gap-8 py-4 px-14 bg-whiteFigma shadow-xl">
         <div className='veryCenter gap-2'>
             <div className='btnBordColor w-7 h-7'>
                 E
