@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 export default function Navbar() {
   return (
-    <nav className="veryCenter gap-8 py-4 px-14 bg-whiteFigma shadow-xl sticky top-0 z-50">
+    <nav className="veryCenter gap-8 py-4 px-14 bg-whiteFigma shadow-xl sticky top-0 z-2">
         <div className='veryCenter gap-2'>
             <div className='btnBordColor w-7 h-7'>
                 E
