@@ -8,8 +8,15 @@
 
 @theme{
   --color-HoverO: #FF5F2214;
-  --color-whiteigma: #FFFFFFE5;
+  --color-whiteFigma: #FFFFFFE5;
   --color-orangeFigma: #FF5F22;
+  --color-hitamFigma: #111111;
+  --color-biruFigma: #3363FF;
+  --color-bgBiruFigma: #3363FF1A;
+  --color-unguFigma: #9810FA;
+  --color-bgUnguFigma: #F3E8FF;  
+  --color-trFooter: #9F9FA9;
+  --color-transprn: #3F3F47;
 }
 
 @utility hover{
@@ -21,5 +28,17 @@
 }
 
 @utility btnBordColor{
-  @apply veryCenter bg-orangeFigma text-[#FFFFFF] rounded-xl cursor-pointer
+  @apply veryCenter bg-orangeFigma text-[#FFFFFF] rounded-xl cursor-pointer py-1 px-2
+}
+
+@utility btnTr{
+  @apply veryCenter border-2 border-transprn text-transprn rounded-xl cursor-pointer py-1 px-2
+}
+
+@utility borderFooter{
+  @apply veryCenter flex-col m-14 bg-hitamFigma rounded-2xl text-whiteFigma py-12 gap-5
+}
+
+@utility borderCus{
+  @apply border-0
 }
