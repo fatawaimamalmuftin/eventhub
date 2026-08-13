@@ -24,10 +24,10 @@ export default function Event() {
         <div className='grid grid-cols-3 gap-3'>
             {Events.map((v)=>(<CardEvents key={v.id} event={v}></CardEvents>))}     
         </div>
-        <div className='px-150'>
-            <div className='myBorder mt-10 veryCenter hover:hover hover:border-orangeFigma'>
-                Load more events
-            </div>
+        <div className='veryCenter'>
+                <div className='myBorder mt-10 w-fit veryCenter hover:hover hover:border-orangeFigma'>
+                    Load more events
+                </div>
         </div>
     </main>
     </>

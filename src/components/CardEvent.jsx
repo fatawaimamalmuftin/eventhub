@@ -13,9 +13,9 @@ export default function CardEvent({ event }) {
           className="h-56 w-full object-cover"
         />
         <div className="absolute bottom-4 left-4 flex gap-2">
-          {event.categories.map((category) => (
+          {event.categories.map((category,i) => (
             <span
-              key={category}
+              key={i}
               className="rounded-full bg-black/20 px-3 py-1 text-sm text-white"
             >
               {category}
@@ -29,17 +29,17 @@ export default function CardEvent({ event }) {
           {event.title}
         </h2>
         <div className="mb-3 flex items-center gap-2 text-gray-500">
-          <img src={calendar} className="h-5 w-5" />
+          <img alt='calendar' src={calendar} className="h-5 w-5" />
           <p>
             {event.date} · {event.time}
           </p>
         </div>
         <div className="mb-3 flex items-center gap-2 text-gray-500">
-          <img src={location} className="h-5 w-5" />
+          <img alt='location' src={location} className="h-5 w-5" />
           <p>{event.location}</p>
         </div>
         <div className="mb-5 flex items-center gap-2 text-gray-500">
-          <img src={users} className="h-5 w-5" />
+          <img alt='users' src={users} className="h-5 w-5" />
           <p>
             {event.attendees} / {event.capacity} attendees
           </p>
