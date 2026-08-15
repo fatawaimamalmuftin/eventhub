@@ -8,7 +8,7 @@ const radioBtn1 = ['All','Joined','Not Joined']
 
 const radioBtn2 = ['All Categories','Technology','Design','Business','Career','Ai','Programming','Music']
 
-export default function Communities() {
+export default function Comunities() {
 
     const [status, setStatus] = useState("All");
     const [category, setCategory] = useState("All Categories");
