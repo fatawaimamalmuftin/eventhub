@@ -26,7 +26,7 @@ export default function SideBarAuth() {
                         </div>
                     </div>
 
-                    <div className='hover:bg-white/20 mt-8 bg-white/10 rounded-2xl w-fit p-5'>
+                    <div className='hover:bg-white/20 mt-8 bg-white/10 rounded-2xl w-full px-15 py-5'>
                         <div>
                             "Found my last three workshops here. The community is fantastic."
                         </div>
@@ -40,7 +40,7 @@ export default function SideBarAuth() {
                         </div>
                     </div>
 
-                     <div className='hover:bg-white/20 mt-5 bg-white/10 rounded-2xl w-fit p-5'>
+                     <div className='hover:bg-white/20 mt-5 bg-white/10 rounded-2xl w-full px-15 py-5'>
                         <div>
                             "EventHub is where Jakarta's tech scene actually happens."
                         </div>
