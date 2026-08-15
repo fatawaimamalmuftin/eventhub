@@ -16,12 +16,12 @@ export default function Navbar() {
         <div className='veryCenter '>
             <div className='hover:hover py-1 px-2'>
                 <Link to={'/'}>
-                Event
+                    Event
                 </Link>
             </div>
             <div className='hover:hover py-1 px-2'>
-                <Link to={'/comunities'}>
-                Communities
+                <Link to={'/guest/comunities'}>
+                    Communities
                 </Link>
             </div>
         </div>
@@ -34,7 +34,9 @@ export default function Navbar() {
                 <img src={moon} alt="moon" className="w-5 h-5" />
             </div>
             <button type="button" className=' btnBordColor py-1 px-2 outline-none hover:hover'>
-                Sign In
+                <Link to={'/login'}>
+                    Sign In
+                </Link>
             </button>
         </div>
     </nav>
