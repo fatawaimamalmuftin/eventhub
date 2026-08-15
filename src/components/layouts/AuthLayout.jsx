@@ -4,9 +4,11 @@ import SideBarAuth from "../SideBarAuth"
 export default function AuthLayout() {
   return (
     <>
-      <main className="grid grid-cols-2 h-screen w-screen">
+      <main className="grid grid-cols-2 h-screen w-screen overflow-hidden">
         <SideBarAuth/>
+        <section className="h-screen overflow-y-auto">
         <Outlet/>
+        </section>
       </main>
     </>
   )
