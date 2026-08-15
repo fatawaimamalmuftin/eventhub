@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 export default function SideBarAuth() {
   return (
     <aside className="relative overflow-hidden bg-black text-white">
-        <div className=" absolute bg-linear-to-bl from-black to-orange-950">
+        <div className=" absolute bg-linear-to-bl from-black to-orange-900">
             <main className="relative z-10 flex flex-col gap-8 px-20 py-10">
                 <header className="flex gap-2 items-center">
                     <div className="btnBordColor rounded-xl font-bold text-sm">
