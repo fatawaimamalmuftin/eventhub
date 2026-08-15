@@ -33,7 +33,7 @@ export default function Login() {
       <form className="flex flex-col gap-2">
         <label className="flex flex-col gap-2 font-semibold">
           Email address
-          <input type="email" className="text-xl px-5 py-4 font-normal outline-white bg-gray-200 rounded-xl" placeholder="exemple@mail.com"/>
+          <input type="email" autoComplete="email" className="text-xl px-5 py-4 font-normal outline-white bg-gray-200 rounded-xl" placeholder="exemple@mail.com"/>
         </label>
         <p id="errEmail" className="text-xl h-6 font-medium text-red-400"></p>
         {/* Email is required */}
@@ -45,7 +45,7 @@ export default function Login() {
               Forgot password?
             </Link>
           </div>
-          <input type="password" className="text-xl px-5 py-4 outline-white bg-gray-200 rounded-xl" placeholder="Input Here . . ."/>
+          <input type="password" autoComplete="password" className="text-xl px-5 py-4 outline-white bg-gray-200 rounded-xl" placeholder="Input Here . . ."/>
         </label>
         <p id="errPass" className="text-xl h-6 font-medium text-red-400"></p>
         {/* Password is required */}

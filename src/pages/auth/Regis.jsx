@@ -33,28 +33,28 @@ export default function Regis() {
       <form className="flex flex-col gap-2">
         <label className="flex flex-col gap-2 font-semibold">
           Full name
-          <input type="text" className="text-xl px-5 py-4 font-normal outline-white bg-gray-200 rounded-xl" placeholder="exemple name"/>
+          <input type="text" autoComplete="text" className="text-xl px-5 py-4 font-normal outline-white bg-gray-200 rounded-xl" placeholder="exemple name"/>
         </label>
         <p id="errName" className="text-xl h-6 font-medium text-red-400"></p>
         {/* Email is required */}
 
         <label className="flex flex-col gap-2 font-semibold">
           Email address
-          <input type="email" className="text-xl px-5 py-4 font-normal outline-white bg-gray-200 rounded-xl" placeholder="exemple@mail.com"/>
+          <input type="email" autoComplete="email" className="text-xl px-5 py-4 font-normal outline-white bg-gray-200 rounded-xl" placeholder="exemple@mail.com"/>
         </label>
         <p id="errEmail" className="text-xl h-6 font-medium text-red-400"></p>
         {/* Email is required */}
 
         <label className="flex flex-col gap-2 font-semibold">
               Password            
-          <input type="password" className="font-normal text-xl px-5 py-4 outline-white bg-gray-200 rounded-xl" placeholder="At least 8 characters"/>
+          <input type="password" autoComplete="password" className="font-normal text-xl px-5 py-4 outline-white bg-gray-200 rounded-xl" placeholder="At least 8 characters"/>
         </label>
         <p id="errPass" className="text-xl h-6 font-medium text-red-400"></p>
         {/* Password is required */}
 
         <label className="flex flex-col gap-2 font-semibold">
               Confirm Password            
-          <input type="password" className="font-normal text-xl px-5 py-4 outline-white bg-gray-200 rounded-xl" placeholder="Re-enter your password"/>
+          <input type="password" autoComplete="password" className="font-normal text-xl px-5 py-4 outline-white bg-gray-200 rounded-xl" placeholder="Re-enter your password"/>
         </label>
         <p id="errPass" className="text-xl h-6 font-medium text-red-400"></p>
         {/* Password is required */}
