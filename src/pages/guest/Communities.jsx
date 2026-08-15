@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import search from '../assets/search.svg'
-import Comunity from '../lib/dummyComunity';
-import CardComunities from '../components/CardComunities';
-import Modal from '../components/Modal';
+import { useState } from "react";
+import search from "../../assets/search.svg";
+import Comunity from "../../lib/dummyComunity.js";
+import CardComunities from "../../components/CardComunities.jsx";
+import Modal from "../../components/Modal.jsx";
 
 const radioBtn1 = ['All','Joined','Not Joined']
 

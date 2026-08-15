@@ -1,9 +1,9 @@
-import search from '../assets/search.svg'
-import filter from '../assets/filter.svg'
-import CardEvents from '../components/CardEvent.jsx'
-import Events from '../lib/dummyEvent.js'
-import { useState } from 'react'
-import Modal from '../components/Modal.jsx'
+import search from "../../assets/search.svg";
+import filter from "../../assets/filter.svg";
+import CardEvents from "../../components/CardEvent.jsx";
+import Events from "../../lib/dummyEvent.js";
+import { useState } from "react";
+import Modal from "../../components/Modal.jsx";
 
 export default function Event() {
     const [isShow,setIsShow] = useState(false)
