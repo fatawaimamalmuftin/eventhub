@@ -60,7 +60,7 @@ export default function Regis() {
         {/* Password is required */}
 
         <label className="flex gap-2">
-          <input type="checkbox" className="text-xl px-5 py-4 outline-white bg-gray-200 rounded-xl" placeholder="Re-enter your password"/>
+          <input type="checkbox" value={true} className="text-xl px-5 py-4 outline-white bg-gray-200 rounded-xl" placeholder="Re-enter your password"/>
               <span>
                 I agree to the <Link className="text-orangeFigma">Terms of Service</Link> and <Link className="text-orangeFigma">Privacy Policy</Link>
               </span>            
