@@ -1,7 +1,7 @@
 
 export default function Login() {
   return (
-    <main className="w-screen h-screen">
+    <main className="">
       <h1>ini login</h1>
     </main>
   )
