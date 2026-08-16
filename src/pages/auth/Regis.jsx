@@ -12,7 +12,11 @@ export default function Regis() {
 
   const onSubmit = (data) => {
     const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
-    const setData = [...dataLocal,data]
+    const idUser = {
+      id: dataLocal.length + 1, ...data,
+      isLogind:false
+    }
+    const setData = [...dataLocal,idUser]
     window.localStorage.setItem("users",JSON.stringify(setData))
     reset()
   }
