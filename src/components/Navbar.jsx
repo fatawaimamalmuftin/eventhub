@@ -1,5 +1,5 @@
 import moon from '../assets/moon.svg'
-import { Link } from 'react-router'
+import { NavLink } from 'react-router'
 
 export default function Navbar() {
   return (
@@ -13,16 +13,23 @@ export default function Navbar() {
             </div>
         </div>
 
-        <div className='veryCenter '>
-            <div className='hover:hover py-1 px-2'>
-                <Link to={'/'}>
+        <div className='veryCenter gap-4'>
+            <div>
+                <NavLink 
+                to={'/guest'}
+                end
+                className={({isActive})=>isActive? "btnBordColor py-1 px-2" : "hover:hover py-2 px-4"}
+                >
                     Event
-                </Link>
+                </NavLink>
             </div>
-            <div className='hover:hover py-1 px-2'>
-                <Link to={'/guest/comunities'}>
+            <div>
+                <NavLink 
+                to={'/guest/comunities'}
+                className={({isActive})=>isActive? "btnBordColor py-1 px-2" : "hover:hover py-2 px-4"}
+                >
                     Communities
-                </Link>
+                </NavLink>
             </div>
         </div>
 
@@ -34,9 +41,9 @@ export default function Navbar() {
                 <img src={moon} alt="moon" className="w-5 h-5" />
             </div>
             <button type="button" className=' btnBordColor py-1 px-2 outline-none hover:hover'>
-                <Link to={'/login'}>
+                <NavLink to={'/login'}>
                     Sign In
-                </Link>
+                </NavLink>
             </button>
         </div>
     </nav>
