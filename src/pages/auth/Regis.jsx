@@ -14,7 +14,6 @@ export default function Regis() {
     const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
     const idUser = {
       id: dataLocal.length + 1, ...data,
-      isLogind:false
     }
     const setData = [...dataLocal,idUser]
     window.localStorage.setItem("users",JSON.stringify(setData))
