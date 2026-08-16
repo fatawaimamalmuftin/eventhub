@@ -72,7 +72,7 @@ export default function Regis() {
             })}
             type="text"
             autoComplete="name"
-            className={`text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 font-normal ${errors.fullName? "outline-red-500":"outline-white"} bg-gray-200 rounded-xl`}
+            className={`border-2 outline-none text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 font-normal ${errors.fullName? "border-red-500":"border-white"} bg-gray-200 rounded-xl`}
             placeholder="exemple name"
           />
         </label>
@@ -95,7 +95,7 @@ export default function Regis() {
             })}
             type="email"
             autoComplete="email"
-            className={`text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 font-normal ${errors.email? "outline-red-500":"outline-white"} bg-gray-200 rounded-xl`}
+            className={`border-2 outline-none text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 font-normal ${errors.email? "border-red-500":"border-white"} bg-gray-200 rounded-xl`}
             placeholder="exemple@mail.com"
           />
         </label>
@@ -117,7 +117,7 @@ export default function Regis() {
             })}
             type="password"
             autoComplete="new-password"
-            className={`font-normal text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 ${errors.password? "outline-red-500":"outline-white"} bg-gray-200 rounded-xl`}
+            className={`border-2 outline-none font-normal text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 ${errors.password? "border-red-500":"border-white"} bg-gray-200 rounded-xl`}
             placeholder="At least 6 characters"
           />
         </label>
@@ -138,7 +138,7 @@ export default function Regis() {
             })}
             type="password"
             autoComplete="new-password"
-            className={`font-normal text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 ${errors.confirmPassword? "outline-red-500":"outline-white"} bg-gray-200 rounded-xl`}
+            className={`border-2 outline-none font-normal text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 ${errors.confirmPassword? "border-red-500":"border-white"} bg-gray-200 rounded-xl`}
             placeholder="Re-enter your password"
           />
         </label>
