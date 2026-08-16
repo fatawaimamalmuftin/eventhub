@@ -1,6 +1,27 @@
-import { Link } from "react-router"
+import { Link,useNavigate } from "react-router"
+import { useForm } from "react-hook-form"
 
 export default function Login() {
+  const {
+    handleSubmit,
+    register,
+    formState:{errors},
+    reset
+  } = useForm()
+
+  const navigate = useNavigate()
+
+  const onSubmit = (data) => {
+    const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
+
+    const isLogind = dataLocal.find((e)=> e.name === data.name && e.email === data.email)
+    isLogind.isLogind = true
+
+    localStorage.setItem("userLogind", JSON.stringify(isLogind))
+    reset()
+    navigate('/')
+  }
+
   return (
     <main className="flex flex-col gap-5 py-8 px-5 sm:py-10 sm:px-10 md:px-16 lg:px-20 xl:px-30">
       <div>
@@ -41,24 +62,32 @@ export default function Login() {
       </div>
 
       {/* Form */}
-      <form className="flex flex-col gap-2">
+      <form className="flex flex-col gap-2"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <label className="flex flex-col gap-2 font-semibold">
           Email address
 
           <input
+            {...register("email",{
+              required: "Email is required",
+              validate:{
+                isRegisted : (v) => {
+                  const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
+                  const isRegis = dataLocal.some((u) => u.email.toLowerCase() === v.toLowerCase())
+                  return isRegis || "This email not registered"
+                }
+              }
+            })}
             type="email"
             autoComplete="email"
-            className="text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 font-normal outline-white bg-gray-200 rounded-xl"
+            className={`border-2 outline-none text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 font-normal ${errors.email ? "border-red-500":"border-white"} bg-gray-200 rounded-xl`}
             placeholder="exemple@mail.com"
           />
         </label>
 
-        <p
-          id="errEmail"
-          className="text-base sm:text-xl h-6 font-medium text-red-400"
-        ></p>
-
-        {/* Email is required */}
+        <p className="text-base sm:text-xl h-6 font-medium text-red-400"
+        >{errors.email?.message}</p>
 
         <label className="flex flex-col gap-2">
           <div className="flex flex-wrap justify-between gap-2">
@@ -75,19 +104,29 @@ export default function Login() {
           </div>
 
           <input
+            {...register('password',{
+              required: "Password is required",
+              minLength:{
+                value:6,
+                message: "password minimum 6 characters"
+              },
+              validate: {
+                isCorrect : (v,fs) => {
+                  const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
+                  const isRegis = dataLocal.some((u) => u.email.toLowerCase() === fs.email?.toLowerCase() && u.password === v)
+                  return isRegis || "This email or password not registered"
+                }
+              }
+            })}
             type="password"
             autoComplete="current-password"
-            className="text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 outline-white bg-gray-200 rounded-xl"
+            className={`border-2 outline-none text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 ${errors.password? "border-red-500":"border-white"} bg-gray-200 rounded-xl`}
             placeholder="Input Here . . ."
           />
         </label>
 
-        <p
-          id="errPass"
-          className="text-base sm:text-xl h-6 font-medium text-red-400"
-        ></p>
-
-        {/* Password is required */}
+        <p className="text-base sm:text-xl h-6 font-medium text-red-400"
+        >{errors.password?.message}</p>
 
         <button className="btnBordColor w-full hover:bg-green-600 font-bold py-3 sm:py-4 text-lg sm:text-xl">
           Sign in
