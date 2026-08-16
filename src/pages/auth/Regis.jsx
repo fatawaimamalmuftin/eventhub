@@ -1,6 +1,22 @@
 import { Link } from "react-router"
+import { useForm } from "react-hook-form"
 
 export default function Regis() {
+  
+  const {
+    handleSubmit,
+    register,
+    formState:{errors},
+    reset
+  } = useForm()
+
+  const onSubmit = (data) => {
+    const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
+    const setData = [...dataLocal,data]
+    window.localStorage.setItem("users",JSON.stringify(setData))
+    reset()
+  }
+
   return (
     <main className="flex flex-col gap-2 py-8 px-5 sm:py-10 sm:px-10 md:px-16 lg:px-20 xl:px-30">
       <div>
@@ -41,84 +57,104 @@ export default function Regis() {
       </div>
 
       {/* Form */}
-      <form className="flex flex-col gap-2">
+      <form className="flex flex-col gap-2"
+      onSubmit={handleSubmit(onSubmit)}>
         {/* Full Name */}
         <label className="flex flex-col gap-2 font-semibold">
           Full name
 
           <input
+            {...register("fullName",{
+              required : "Full Name is required",
+              // validate: {
+              //   isName: (value,formValues) => !(value === formValues) || "Name is registered"
+              // }
+            })}
             type="text"
             autoComplete="name"
-            className="text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 font-normal outline-white bg-gray-200 rounded-xl"
+            className={`text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 font-normal ${errors.fullName? "outline-red-500":"outline-white"} bg-gray-200 rounded-xl`}
             placeholder="exemple name"
           />
         </label>
 
-        <p
-          id="errName"
-          className="text-base sm:text-xl h-6 font-medium text-red-400"
-        ></p>
+         <p className="text-base sm:text-xl h-6 font-medium text-red-400"
+        >{errors.fullName?.message}</p>
 
         {/* Email */}
         <label className="flex flex-col gap-2 font-semibold">
           Email address
 
           <input
+            {...register("email",{
+              required : "Email is required",
+              validate: (value) => {
+                const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
+                const isRegisted = dataLocal.some((u)=> u.email.toLowerCase() === value.toLowerCase())
+                return !isRegisted || "Email is registered"
+              }
+            })}
             type="email"
             autoComplete="email"
-            className="text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 font-normal outline-white bg-gray-200 rounded-xl"
+            className={`text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 font-normal ${errors.email? "outline-red-500":"outline-white"} bg-gray-200 rounded-xl`}
             placeholder="exemple@mail.com"
           />
         </label>
 
-        <p
-          id="errEmail"
-          className="text-base sm:text-xl h-6 font-medium text-red-400"
-        ></p>
+        <p className="text-base sm:text-xl h-6 font-medium text-red-400"
+        >{errors.email?.message}</p>
 
         {/* Password */}
         <label className="flex flex-col gap-2 font-semibold">
           Password
 
           <input
+            {...register("password",{
+              required : "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "password minimum 6 characters",
+              },
+            })}
             type="password"
             autoComplete="new-password"
-            className="font-normal text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 outline-white bg-gray-200 rounded-xl"
-            placeholder="At least 8 characters"
+            className={`font-normal text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 ${errors.password? "outline-red-500":"outline-white"} bg-gray-200 rounded-xl`}
+            placeholder="At least 6 characters"
           />
         </label>
 
-        <p
-          id="errPass"
-          className="text-base sm:text-xl h-6 font-medium text-red-400"
-        ></p>
+        <p className="text-base sm:text-xl h-6 font-medium text-red-400" 
+        >{errors.password?.message}</p>
 
         {/* Confirm Password */}
         <label className="flex flex-col gap-2 font-semibold">
           Confirm Password
 
           <input
+            {...register("confirmPassword",{
+              required: "Confirm Password is required",
+              validate: {
+                matchPassword: (value, formValues) => value === formValues.password || "passwords are not the same",
+              }
+            })}
             type="password"
             autoComplete="new-password"
-            className="font-normal text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 outline-white bg-gray-200 rounded-xl"
+            className={`font-normal text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 ${errors.confirmPassword? "outline-red-500":"outline-white"} bg-gray-200 rounded-xl`}
             placeholder="Re-enter your password"
           />
         </label>
 
-        <p
-          id="errConfirmPass"
-          className="text-base sm:text-xl h-6 font-medium text-red-400"
-        ></p>
+        <p className="text-base sm:text-xl h-6 font-medium text-red-400"
+          
+        >{errors.confirmPassword?.message}</p>
 
         {/* Terms */}
         <label className="flex items-start gap-2">
-          <input
+          <input className="mt-1 shrink-0"
+            {...register("agree",{required : "You must agree to the Terms of Service"})}
             type="checkbox"
-            value={true}
-            className="mt-1 shrink-0"
           />
 
-          <span className="text-sm sm:text-base">
+          <span className={`text-sm sm:text-base ${errors.agree && "text-red-600"}`}>
             I agree to the{" "}
             <Link className="text-orangeFigma">
               Terms of Service
@@ -130,10 +166,8 @@ export default function Regis() {
           </span>
         </label>
 
-        <p
-          id="errTerms"
-          className="text-base sm:text-xl h-6 font-medium text-red-400"
-        ></p>
+        <p className="text-base sm:text-xl h-6 font-medium text-red-400"
+        >{errors.agree?.message}</p>
 
         <button className="btnBordColor w-full hover:bg-green-600 font-bold py-3 sm:py-4 text-lg sm:text-xl">
           Sign in
