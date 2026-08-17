@@ -13,12 +13,16 @@ export default function UserLayout() {
         return <Navigate to="/auth/login" replace/>
     }
 
-    if(username === user.fullname){
-        return <Navigate to={`/${user.fullname}`} replace/>
+    if(user){
+        if(username !== user.fullName){
+            return <Navigate to={`/${user.fullName}`} replace/>
+        }
     }
 
-    if("admin" === admin.email){
-        return <Navigate to={`/${admin.email}`} replace/>
+    if(admin){
+        if(username !== admin.email){
+            return <Navigate to={`/${admin.email}`} replace/>
+        }
     }
 
   return (

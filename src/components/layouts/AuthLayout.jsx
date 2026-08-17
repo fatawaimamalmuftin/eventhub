@@ -7,8 +7,8 @@ export default function AuthLayout() {
   const navigate = useNavigate()
 
   useEffect(()=>{
-    const user = localStorage.getItem("userLogind")
-    const admin = localStorage.getItem("admin")
+    const user = JSON.parse(localStorage.getItem("userLogind")||"null")
+    const admin = JSON.parse(localStorage.getItem("admin")||"null")
 
     if(user){
       navigate(`/${user.fullName}`, {replace:true})
