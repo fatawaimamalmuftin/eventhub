@@ -1,10 +1,13 @@
 
-export default function CardFilterCompo({show}) {
+export default function CardFilterCompo({show, setCategory}) {
     // console.log(show)
   return (
     <main className="absolute right-5 top-15 veryCenter justify-end gap-5 mt-5">
         {show.map((v,i)=>(
-            <div key={i} value={v} className=" btnBordColor hover:hover">
+            <div className=" btnBordColor hover:hover"
+            onClick={()=>setCategory(v)}
+            key={i} 
+            value={v}>
                 {v}
             </div>
         ))}
