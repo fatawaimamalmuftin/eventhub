@@ -6,6 +6,9 @@ import Login from "./pages/auth/Login.jsx";
 import Regis from "./pages/auth/Regis.jsx";
 import Forgot from "./pages/auth/Forgot.jsx";
 import AuthLayout from "./components/layouts/AuthLayout.jsx";
+import Explore from "./pages/guest/Explore.jsx";
+import MyEvents from "./pages/guest/MyEvents.jsx";
+import UserLayout from "./components/layouts/UserLayout.jsx";
 
 export default function Router() {
   return (
@@ -16,6 +19,14 @@ export default function Router() {
       <Route path="/guest" element={<GuestLayout />}>
         <Route index element={<Event />} />
         <Route path="comunities" element={<Comunities />} />
+      </Route>
+
+      {/* user */}
+      <Route path="/:username" element={<UserLayout/>}>
+        <Route index element={<Event/>}/>
+        <Route path="explore" element={<Explore/>}/>  
+        <Route path="comunities" element={<Comunities/>}/>  
+        <Route path="myevents" element={<MyEvents/>}/>  
       </Route>
 
       {/* auth */}
