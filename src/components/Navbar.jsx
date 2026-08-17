@@ -18,14 +18,18 @@ export default function Navbar() {
             const admin = JSON.parse(localStorage.getItem("admin")||"null")
             if(admin){
                 setAdminNav(true)
-                return setAdmin(admin)
+                setAdmin(admin)
+                return 
             }
+            
             const dataLocal = JSON.parse(localStorage.getItem("userLogind")||"null")
             setUserLogind(dataLocal)
         })()
     },[])
 
     const profile = userLogind? userLogind.fullName[0].toUpperCase() : ""
+
+    const basePath = userLogind? `/${userLogind.fullName}` : admin? `/${admin.email}`: "/guest"
 
   return (
     <nav className="veryCenter gap-8 py-4 px-14 bg-whiteFigma shadow-xl sticky top-0 z-2">
@@ -40,14 +44,19 @@ export default function Navbar() {
 
         <div className='veryCenter gap-4'>
             {(userLogind || adminNav) &&
-            <div className="hover:hover py-2 px-4">
+            <div>
+                <NavLink 
+                to={`${basePath}/explore`}
+                className={({isActive})=>isActive? "btnBordColor py-1 px-2" : "hover:hover py-2 px-4"}
+                >
                     Explore
+                </NavLink>
             </div>
             }
 
             <div>
                 <NavLink 
-                to={'/guest'}
+                to={basePath}
                 end
                 className={({isActive})=>isActive? "btnBordColor py-1 px-2" : "hover:hover py-2 px-4"}
                 >
@@ -57,18 +66,23 @@ export default function Navbar() {
             
             <div>
                 <NavLink 
-                to={'/guest/comunities'}
+                to={`${basePath}/comunities`}
                 className={({isActive})=>isActive? "btnBordColor py-1 px-2" : "hover:hover py-2 px-4"}
                 >
                     Communities
                 </NavLink>
             </div>
 
-            {(userLogind || adminNav) &&
-            <div className="hover:hover py-2 px-4">
-                    My Events
-            </div>
-            }
+            {(userLogind || admin) &&
+                <div>
+                    <NavLink 
+                    to={`${basePath}/myevents`}
+                    className={({isActive})=>isActive? "btnBordColor py-1 px-2" : "hover:hover py-2 px-4"}
+                    >
+                        My Events
+                    </NavLink>
+                </div>
+                }
         </div>
 
         <div className='veryCenter ml-auto gap-5'>
