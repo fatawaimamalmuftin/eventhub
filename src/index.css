@@ -33,7 +33,7 @@
 }
 
 @utility btnTr{
-  @apply veryCenter border-2 border-transprn text-transprn rounded-xl cursor-pointer py-2 px-4
+  @apply veryCenter border-2 border-white/40 text-white/40 rounded-xl cursor-pointer py-2 px-4
 }
 
 @utility borderFooter{
