@@ -1,7 +1,13 @@
 
-export default function ModalLogout({show, setShow}) {
+export default function ModalLogout({show, setShow, admin = null, setAdmin = null}) {
     function handleLogout(){
-        // const dataLocal = JSON.parse(localStorage.getItem("userLogind")||"[]")
+        if(admin){
+            setAdmin(false)
+            localStorage.removeItem("admin")
+            window.location.reload()
+            return 
+        }
+        
         localStorage.removeItem("userLogind")
         window.location.reload()
     }
