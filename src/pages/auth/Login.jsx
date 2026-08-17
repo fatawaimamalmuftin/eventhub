@@ -12,6 +12,12 @@ export default function Login() {
   const navigate = useNavigate()
 
   const onSubmit = (data) => {
+    if(data.email === import.meta.env.VITE_USERNAME && data.password === import.meta.env.VITE_PASSWORD){
+      localStorage.setItem("admin",JSON.stringify(data))
+      navigate('/')
+      return
+    }
+
     const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
 
     const isLogind = dataLocal.find((e)=> e.name === data.name && e.email === data.email)
@@ -73,13 +79,19 @@ export default function Login() {
               required: "Email is required",
               validate:{
                 isRegisted : (v) => {
-                  const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
-                  const isRegis = dataLocal.some((u) => u.email.toLowerCase() === v.toLowerCase())
-                  return isRegis || "This email not registered"
+                  if(v === import.meta.env.VITE_USERNAME){
+                    return true
+                  } else if (!(v.includes("@"))) {
+                    return "there must be an @ character"
+                  } else {
+                    const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
+                    const isRegis = dataLocal.some((u) => u.email.toLowerCase() === v.toLowerCase())
+                    return isRegis || "This email not registered"
+                  }
                 }
               }
             })}
-            type="email"
+            type="text"
             autoComplete="email"
             className={`border-2 outline-none text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 font-normal ${errors.email ? "border-red-500":"border-white"} bg-gray-200 rounded-xl`}
             placeholder="exemple@mail.com"
@@ -113,8 +125,12 @@ export default function Login() {
               validate: {
                 isCorrect : (v,fs) => {
                   const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
-                  const isRegis = dataLocal.some((u) => u.email.toLowerCase() === fs.email?.toLowerCase() && u.password === v)
-                  return isRegis || "This email or password not registered"
+                  if(v === import.meta.env.VITE_PASSWORD){
+                    return true
+                  }else{
+                    const isRegis = dataLocal.some((u) => u.email.toLowerCase() === fs.email?.toLowerCase() && u.password === v)
+                    return isRegis || "This email or password not registered"
+                  }
                 }
               }
             })}
