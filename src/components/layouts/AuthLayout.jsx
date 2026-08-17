@@ -10,8 +10,13 @@ export default function AuthLayout() {
     const user = localStorage.getItem("userLogind")
     const admin = localStorage.getItem("admin")
 
-    if(user || admin){
-      navigate("/", {replace:true})
+    if(user){
+      navigate(`/${user.fullName}`, {replace:true})
+      return
+    }
+
+    if(admin){
+      navigate(`/${admin.email}`, {replace:true})
       return
     }
   },[navigate])
