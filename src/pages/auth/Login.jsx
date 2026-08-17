@@ -13,7 +13,11 @@ export default function Login() {
 
   const onSubmit = (data) => {
     if(data.email === import.meta.env.VITE_USERNAME && data.password === import.meta.env.VITE_PASSWORD){
+      
+      data.images = "https://i.pinimg.com/736x/19/ad/7e/19ad7edff92d85bf46b28cebd129060b.jpg"
+
       localStorage.setItem("admin",JSON.stringify(data))
+
       navigate('/')
       return
     }
