@@ -9,6 +9,7 @@ import AuthLayout from "./components/layouts/AuthLayout.jsx";
 import Explore from "./pages/guest/Explore.jsx";
 import MyEvents from "./pages/guest/MyEvents.jsx";
 import UserLayout from "./components/layouts/UserLayout.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 export default function Router() {
   return (
@@ -36,7 +37,10 @@ export default function Router() {
         <Route path="registration" element={<Regis />} />
         <Route path="forgotPassword" element={<Forgot />} />
       </Route>
-      
+
+      {/* catch all */}
+      <Route path="*" element={<NotFound />} />
+
     </Routes>
   );
 }
