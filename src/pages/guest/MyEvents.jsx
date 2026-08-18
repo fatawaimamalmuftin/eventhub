@@ -1,12 +1,9 @@
-import { useState } from "react"
 import bookmark from "../../assets/bookmark.svg"
-import { useNavigate } from "react-router"
+import { useState } from "react"
 
 export default function MyEvents() {
 
     const [tab, setTab] = useState("upcoming")
-
-    const navigate = useNavigate()
 
     let title = "No upcoming events"
     let description = "Events you join will appear here."
@@ -37,8 +34,8 @@ export default function MyEvents() {
                         onClick={() => setTab("upcoming")}
                         className={`pb-3 text-sm ${
                             tab === "upcoming"
-                            ? "text-orangeFigma border-b-2 border-orangeFigma hover:hover"
-                            : "text-gray-500 hover:hover"
+                                ? "text-orangeFigma border-b-2 border-orangeFigma hover:hover"
+                                : "text-gray-500 hover:hover"
                         }`}
                     >
                         Upcoming (0)
@@ -49,8 +46,8 @@ export default function MyEvents() {
                         onClick={() => setTab("past")}
                         className={`pb-3 text-sm ${
                             tab === "past"
-                            ? "text-orangeFigma border-b-2 border-orangeFigma hover:hover"
-                            : "text-gray-500 hover:hover"
+                                ? "text-orangeFigma border-b-2 border-orangeFigma hover:hover"
+                                : "text-gray-500 hover:hover"
                         }`}
                     >
                         Past (0)
@@ -61,8 +58,8 @@ export default function MyEvents() {
                         onClick={() => setTab("saved")}
                         className={`pb-3 text-sm ${
                             tab === "saved"
-                            ? "text-orangeFigma border-b-2 border-orangeFigma hover:hover"
-                            : "text-gray-500 hover:hover"
+                                ? "text-orangeFigma border-b-2 border-orangeFigma hover:hover"
+                                : "text-gray-500 hover:hover"
                         }`}
                     >
                         Saved (0)
@@ -91,16 +88,6 @@ export default function MyEvents() {
                     </p>
 
                 </div>
-
-                {tab === "saved" &&
-                    <button
-                        type="button"
-                        className="btnBordColor hover:hover"
-                        onClick={() => navigate("/guest/explore")}
-                    >
-                        Explore Events
-                    </button>
-                }
 
             </section>
 
