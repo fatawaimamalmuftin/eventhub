@@ -1,7 +1,9 @@
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
 
 export default function Regis() {
+
+  const navigate = useNavigate()
   
   const {
     handleSubmit,
@@ -18,6 +20,8 @@ export default function Regis() {
     const setData = [...dataLocal,idUser]
     window.localStorage.setItem("users",JSON.stringify(setData))
     reset()
+
+    navigate("/auth/login", {replace:true})
   }
 
   return (
