@@ -16,9 +16,11 @@ export default function Explore() {
     const filterEvent = Events.filter((e)=>{
         const searchValue = searchEvent.toLowerCase()
 
-        return e.title.toLowerCase().includes(searchValue) ||
-        e.location.toLowerCase().includes(searchValue) ||
-        e.categories.some((c)=>c.toLowerCase().includes(searchValue))
+        const baseOnTitle = e.title.toLowerCase().includes(searchValue)
+        const baseOnLocation = e.location.toLowerCase().includes(searchValue)
+        const baseOnCate = e.categories.some((c)=>c.toLowerCase().includes(searchValue))
+
+        return baseOnTitle || baseOnLocation || baseOnCate
     })
 
     const recommended = filterEvent.slice(0,3)
