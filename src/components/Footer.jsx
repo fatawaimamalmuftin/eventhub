@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="veryCenter gap-4 ">
             <div className="text-biruFigma bg-bgBiruFigma py-1 px-2 rounded-xl">Technology</div>
             <div className="text-biruFigma bg-bgBiruFigma py-1 px-2 rounded-xl">Ai</div>
-            <div className="text-unguFigma bg-bgUnguFigma py-1 px-2 rounded-xl">Design</div>
+            <div className="text-purpleFigma bg-bgPurpleFigma py-1 px-2 rounded-xl">Design</div>
         </div>
 
         <div className="font-bold text-4xl">
