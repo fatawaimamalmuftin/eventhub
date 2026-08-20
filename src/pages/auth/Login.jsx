@@ -1,7 +1,11 @@
 import { Link,useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
+import { useContext } from "react"
+import userLogindContex from "../../context/userLogind/userLogindContext"
 
 export default function Login() {
+  const user = useContext(userLogindContex)
+
   const {
     handleSubmit,
     register,
@@ -26,6 +30,12 @@ export default function Login() {
 
     const isLogind = dataLocal.find((e)=> e.name === data.name && e.email === data.email)
     isLogind.isLogind = true
+
+    user.setUserLogind({
+        id: isLogind.id,
+        fullName: isLogind.fullName,
+        email: isLogind.email,
+    })
 
     localStorage.setItem("userLogind", JSON.stringify(isLogind))
     reset()

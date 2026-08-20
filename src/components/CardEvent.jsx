@@ -8,7 +8,6 @@ import selectedContext from '../context/selected/selectedContext'
 export default function CardEvent({ event, isShow, setShowDetail}) {
 
   const selectItem = useContext(selectedContext)
-  console.log(selectItem)
 
   return (
     <div 

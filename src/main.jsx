@@ -4,13 +4,16 @@ import './index.css'
 import Router from './Router.jsx'
 import { BrowserRouter } from 'react-router'
 import SelectedProvider from './context/selected/SelectedProvider.jsx'
+import UserLogindProvider from './context/userLogind/UserLogindProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <SelectedProvider>
-      <BrowserRouter>
-        <Router />
-      </BrowserRouter>
-    </SelectedProvider>
+    <UserLogindProvider>
+      <SelectedProvider>
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
+      </SelectedProvider>
+    </UserLogindProvider>
   </StrictMode>,
 )
