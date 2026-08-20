@@ -10,6 +10,8 @@ export default function Event() {
     const [isShow,setIsShow] = useState(false)
     const [searchEvent,setSearchEvent] = useState("")
     const [category,setCategory] = useState("")
+    const [locations,setLocations] = useState("")
+    const [,setSortBy] = useState("")
     const [filterTogle,setFilterTogel] = useState(false)
     const [showMore, setShowMore] = useState(false)
 
@@ -28,19 +30,24 @@ export default function Event() {
     const filterEvent = Events.filter((e) => {
         const searchValue = searchEvent.toLowerCase()
 
-        const matchSearch =
-            e.title.toLowerCase().includes(searchValue) ||
-            e.location.toLowerCase().includes(searchValue)
+        const matchSearch = e.title
+            .toLowerCase()
+            .includes(searchValue)
 
         const matchCategory =
             category === "" ||
-            e.filters.some((c) => c.toLowerCase() === category.toLowerCase())
+            e.categories.some(
+                (item) => item.toLowerCase() === category.toLowerCase()
+            )
 
-        return matchSearch && matchCategory
+        const matchLocation =
+            locations === "" ||
+            e.location.toLowerCase() === locations.toLowerCase()
+
+        return matchSearch && matchCategory && matchLocation
     })
 
     const dataEvent = showMore? filterEvent.slice(0,6) : filterEvent
-        
 
   return (
     <>
@@ -75,7 +82,14 @@ export default function Event() {
 
         {filterTogle &&
         <section className="veryCenter">
-            <CardFilterCompo show={filters} setCategory={setCategory}/>
+            <CardFilterCompo 
+            show={filters} 
+            category={category}
+            setCategory={setCategory}
+            locations={locations}
+            setLocations={setLocations}
+            setSortBy={setSortBy}
+            />
         </section>
         }
 

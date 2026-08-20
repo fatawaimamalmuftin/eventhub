@@ -52,7 +52,7 @@ export default function ModalLogout({ show, admin = null, setAdmin = null }) {
                 </div>
             )}
 
-            <div className="border-t border-gray-200 px-7 py-4 text-xl text-gray-700 hover:bg-gray-200 cursor-pointer">
+            <div className="border-t border-gray-200 px-7 py-4 text-xl text-gray-700 hover:bg-gray-200 cursor-pointer whitespace-nowrap">
                 {admin ? "Admin Dashboard" : "My Profile"}
             </div>
 
