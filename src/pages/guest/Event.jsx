@@ -2,9 +2,11 @@ import search from "../../assets/search.svg";
 import filter from "../../assets/filter.svg";
 import CardEvents from "../../components/CardEvent.jsx";
 import Events from "../../lib/dummyEvent.js";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import Modal from "../../components/Modal.jsx";
 import CardFilterCompo from '../../components/CardFilterCompo.jsx'
+import EventDetail from "../../components/EventDetail.jsx";
+import selectedContext from "../../context/selected/selectedContext.js";
 
 export default function Event() {
     const [isShow,setIsShow] = useState(false)
@@ -14,6 +16,14 @@ export default function Event() {
     const [,setSortBy] = useState("")
     const [filterTogle,setFilterTogel] = useState(false)
     const [showMore, setShowMore] = useState(false)
+    const [showDetail, setShowDetail] = useState(false)
+    const selectedData = useContext(selectedContext)
+
+    useEffect(() => {
+        if (showDetail) {
+            window.scrollTo({top: 0})
+        }
+    }, [showDetail,selectedData])
 
     const filters = [
         {
@@ -47,16 +57,16 @@ export default function Event() {
         return matchSearch && matchCategory && matchLocation
     })
 
-    const dataEvent = showMore? filterEvent.slice(0,6) : filterEvent
+    const dataEvent = showDetail ? filterEvent.slice(0, 3) : showMore ? filterEvent.slice(0, 6) : filterEvent
 
   return (
     <>
     <Modal show={isShow} setShow={setIsShow}/>
     
-    <header className="veryCenter px-14 py-5 shadow-xl gap-4">
-        <label className='veryCenter w-full bg-borderClr p-2 rounded-2xl'>
-            <img src={search} alt="search" className='h-7 w-7'/>
-            <input className='veryCenter px-2 py-1 outline-none w-full'
+    <header className={`veryCenter px-14 py-5 shadow-xl gap-4 ${showDetail && "hidden"}`}>
+        <label className={`veryCenter w-full bg-borderClr p-2 rounded-2xl ${showDetail && "hidden"}`}>
+            <img src={search} alt="search" className={`${showDetail && "hidden"} h-7 w-7`}/>
+            <input className={`${showDetail && "hidden"} veryCenter px-2 py-1 outline-none w-full`}
             value={searchEvent}
             onChange={(e)=>setSearchEvent(e.target.value)}
             type="text" placeholder='Search events...'/>
@@ -92,9 +102,11 @@ export default function Event() {
             />
         </section>
         }
+        
+        <EventDetail showDetail={showDetail} setShowDetail={setShowDetail}/>
 
     <main className="mainEvent">
-        <div className='myBorder w-40 mb-5 hover:hover'>
+        <div className={`myBorder w-40 mb-5 hover:hover ${showDetail && "hidden"}`}>
             <span className='font-bold'>{dataEvent.length} </span><span>events found</span>
         </div>
         <div className='grid grid-cols-3 gap-3'>
@@ -103,10 +115,11 @@ export default function Event() {
                     key={v.id} 
                     event={v} 
                     isShow={setIsShow}
+                    setShowDetail={setShowDetail}
                 />))}     
         </div>
         <div className='veryCenter'>
-                <button className='myBorder mt-10 w-fit veryCenter hover:hover hover:border-orangeFigma'
+                <button className={`myBorder mt-10 w-fit veryCenter hover:hover hover:border-orangeFigma ${showDetail && "hidden"}`}
                 onClick={()=>showMore? setShowMore(false) : setShowMore(true)}
                 >
                     {showMore? "Load more events" : "show less data"}

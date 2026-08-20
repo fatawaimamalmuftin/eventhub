@@ -1,11 +1,34 @@
+import { useContext } from 'react'
 import bookmark from '../assets/bookmark.svg'
 import calendar from '../assets/calender.svg'
 import location from '../assets/location.svg'
 import users from '../assets/users.svg'
+import selectedContext from '../context/selected/selectedContext'
 
-export default function CardEvent({ event, isShow }) {
+export default function CardEvent({ event, isShow, setShowDetail}) {
+
+  const selectItem = useContext(selectedContext)
+  console.log(selectItem)
+
   return (
-    <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white border-borderClr border-2 transition duration-300 hover:-translate-y-2">
+    <div 
+    onClick={(e)=>{
+      e.preventDefault()
+
+      selectItem.setSelected({
+        urlImages: event.image,
+        title: event.title,
+        categories: event.categories,
+        date: event.date,
+        time: event.time,
+        location: event.location,
+        attendees: event.attendees,
+        capacity: event.capacity
+      })
+
+      setShowDetail(true)
+    }}
+    className="w-full max-w-md overflow-hidden rounded-2xl bg-white border-borderClr border-2 transition duration-300 hover:-translate-y-2">
       <div className="relative">
         <img
           src={event.image}

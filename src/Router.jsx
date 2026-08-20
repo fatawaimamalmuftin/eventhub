@@ -10,6 +10,7 @@ import Explore from "./pages/guest/Explore.jsx";
 import MyEvents from "./pages/guest/MyEvents.jsx";
 import UserLayout from "./components/layouts/UserLayout.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import EventDetail from "./components/EventDetail.jsx";
 
 export default function Router() {
   return (
@@ -37,6 +38,9 @@ export default function Router() {
         <Route path="registration" element={<Regis />} />
         <Route path="forgotPassword" element={<Forgot />} />
       </Route>
+
+      {/* Detail */}
+      <Route path="/eventDetail" element={<EventDetail />} />
 
       {/* catch all */}
       <Route path="*" element={<NotFound />} />
