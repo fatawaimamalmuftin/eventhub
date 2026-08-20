@@ -118,13 +118,13 @@ export default function Navbar() {
 
 
             {userLogind? 
-            <div className='relative' onClick={()=>setShow(true)}>
+            <div className='relative' onClick={()=>show? setShow(false) : setShow(true)}>
                 <button className='relative btnBordColor py-1 px-2 w-10 h-10 outline-none hover:hover rounded-4xl text-2xl hover:rounded-4xl'
                 type="button"
                 >
                     {profile}
                 </button>
-                <ModalLogout show={show} setShow={setShow}/>
+                <ModalLogout show={show}/>
             </div>
             :
             <button type="button" className={admin? `hidden` : `btnBordColor py-1 px-2 outline-none hover:hover`}>
