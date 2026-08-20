@@ -13,7 +13,17 @@ export default function Event() {
     const [filterTogle,setFilterTogel] = useState(false)
     const [showMore, setShowMore] = useState(false)
 
-    const categories = ["Technology","Ai","Design","Business","Programming","Music"]
+    const filters = [
+        {
+            Category : ["All","Technology","Design","Business","Career","Ai","Programming","Music"]
+        },
+        {
+            Location : ["All Location", "Bandung", "Jakarta", "Surabaya", "Yogyakarta", "Online"]
+        },
+        {
+            SortBy : ["Upcoming","Most Popular", "Almost Full","Recently Added"]
+        }
+    ]
 
     const filterEvent = Events.filter((e) => {
         const searchValue = searchEvent.toLowerCase()
@@ -24,7 +34,7 @@ export default function Event() {
 
         const matchCategory =
             category === "" ||
-            e.categories.some((c) => c.toLowerCase() === category.toLowerCase())
+            e.filters.some((c) => c.toLowerCase() === category.toLowerCase())
 
         return matchSearch && matchCategory
     })
@@ -44,7 +54,6 @@ export default function Event() {
             onChange={(e)=>setSearchEvent(e.target.value)}
             type="text" placeholder='Search events...'/>
         </label>
-    <div className="relative">
         {filterTogle?
         <button className='veryCenter gap-2 myBorder hover:hover hover:border-orangeFigma'
         onClick={()=>setFilterTogel(false)}
@@ -62,14 +71,13 @@ export default function Event() {
         </button>
         }
         
-        {filterTogle &&
-        <section className="veryCenter">
-            <CardFilterCompo show={categories} setCategory={setCategory}/>
-        </section>
-        }
-    </div>
     </header>
 
+        {filterTogle &&
+        <section className="veryCenter">
+            <CardFilterCompo show={filters} setCategory={setCategory}/>
+        </section>
+        }
 
     <main className="mainEvent">
         <div className='myBorder w-40 mb-5 hover:hover'>
