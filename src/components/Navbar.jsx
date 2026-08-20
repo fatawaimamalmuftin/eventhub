@@ -47,7 +47,7 @@ export default function Navbar() {
             <div>
                 <NavLink 
                 to={`${basePath}/explore`}
-                className={({isActive})=>isActive? "btnBordColor py-1 px-2" : "hover:hover py-2 px-4"}
+                className={({isActive})=>isActive? "hover py-3 px-6" : "hover:btnBordColor py-2 px-4"}
                 >
                     Explore
                 </NavLink>
@@ -58,7 +58,7 @@ export default function Navbar() {
                 <NavLink 
                 to={basePath}
                 end
-                className={({isActive})=>isActive? "btnBordColor py-1 px-2" : "hover:hover py-2 px-4"}
+                className={({isActive})=>isActive? "hover py-3 px-6" : "hover:btnBordColor py-2 px-4"}
                 >
                     Event
                 </NavLink>
@@ -67,7 +67,7 @@ export default function Navbar() {
             <div>
                 <NavLink 
                 to={`${basePath}/comunities`}
-                className={({isActive})=>isActive? "btnBordColor py-1 px-2" : "hover:hover py-2 px-4"}
+                className={({isActive})=>isActive? "hover py-3 px-6" : "hover:btnBordColor py-2 px-4"}
                 >
                     Communities
                 </NavLink>
@@ -77,7 +77,7 @@ export default function Navbar() {
                 <div>
                     <NavLink 
                     to={`${basePath}/myevents`}
-                    className={({isActive})=>isActive? "btnBordColor py-1 px-2" : "hover:hover py-2 px-4"}
+                    className={({isActive})=>isActive? "hover py-3 px-6" : "hover:btnBordColor py-2 px-4"}
                     >
                         My Events
                     </NavLink>
