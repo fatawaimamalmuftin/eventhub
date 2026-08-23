@@ -116,7 +116,6 @@ export default function CardEvent({ event, isShow, setShowDetail}) {
                 dispatch(removeCart(event.id))
                 return
               }
-
               dispatch(addCart(event))
             }}>
             {isRegistered ? "✓ Registered" : "Join Event"}
