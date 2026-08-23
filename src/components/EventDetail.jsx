@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { addCart } from "../Redux/slice/userSlice.js"
+import { addCart,removeCart } from "../Redux/slice/userSlice.js"
 import selectedContext from "../context/selected/selectedContext"
 
 export default function EventDetail({showDetail, setShowDetail}) {
@@ -311,12 +311,13 @@ export default function EventDetail({showDetail, setShowDetail}) {
                             <button
                                 onClick={() => {
 
-                                    if(!isRegistered){
-
-                                        setShowJoin(true)
-
+                                    if(isRegistered){
+                                        dispatch(removeCart(selectedData.selected.id))
+                                        return
                                     }
 
+                                    setShowJoin(true)
+                                    
                                 }}
                                 className={`${
                                     isRegistered
