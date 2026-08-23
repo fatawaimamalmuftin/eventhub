@@ -1,10 +1,21 @@
 import { useContext, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { addCart } from "../Redux/slice/userSlice.js"
 import selectedContext from "../context/selected/selectedContext"
 
 export default function EventDetail({showDetail, setShowDetail}) {
     const selectedData = useContext(selectedContext)
+    const dispatch = useDispatch()
 
-    const img = selectedData.selected.urlImages
+    const userLogind = useSelector(
+        (state) => state.userState.user
+    )
+
+    const isRegistered = userLogind?.cart?.some(
+        (item) => item.id === selectedData.selected.id
+    )
+
+    const img = selectedData.selected.image
     const title = selectedData.selected.title
     const categories = selectedData.selected.categories
     const date = selectedData.selected.date
@@ -298,10 +309,22 @@ export default function EventDetail({showDetail, setShowDetail}) {
                             </div>
 
                             <button
-                                onClick={() => setShowJoin(true)}
-                                className="w-full mt-3 rounded-md bg-orange-500 py-2 text-xs font-semibold text-white hover:bg-orange-600"
+                                onClick={() => {
+
+                                    if(!isRegistered){
+
+                                        setShowJoin(true)
+
+                                    }
+
+                                }}
+                                className={`${
+                                    isRegistered
+                                        ? "bg-green-500 border-green-500 text-white w-full rounded-2xl py-2"
+                                        : "btnBordColor w-full"
+                                }`}
                             >
-                                Join Event
+                                {isRegistered ? "✓ Registered" : "Join Event"}
                             </button>
 
                             <div className="grid grid-cols-2 gap-2 mt-2">
@@ -368,14 +391,23 @@ export default function EventDetail({showDetail, setShowDetail}) {
                             <div className="flex justify-end gap-2 mt-5">
 
                                 <button
-                                    onClick={() => setShowJoin(false)}
+                                    onClick={() => {
+                                        dispatch(addCart(selectedData.selected))
+                                        setShowJoin(false)
+                                    }}
                                     className="rounded-md border border-gray-200 px-4 py-2 text-sm"
                                 >
                                     Cancel
                                 </button>
 
                                 <button
-                                    onClick={() => setShowJoin(false)}
+                                    onClick={() => {
+
+                                        dispatch(addCart(selectedData.selected))
+
+                                        setShowJoin(false)
+
+                                    }}
                                     className="rounded-md bg-orange-500 px-4 py-2 text-sm text-white"
                                 >
                                     Confirm

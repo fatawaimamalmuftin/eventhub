@@ -1,25 +1,16 @@
-import { Outlet, useNavigate } from "react-router"
+import { Navigate, Outlet } from "react-router"
 import SideBarAuth from "../SideBarAuth"
-import { useEffect } from "react"
+import { useSelector } from "react-redux"
 
 export default function AuthLayout() {
 
-  const navigate = useNavigate()
+  const user = useSelector((state) => state.userState.user)
 
-  useEffect(()=>{
-    const user = JSON.parse(localStorage.getItem("userLogind")||"null")
-    const admin = JSON.parse(localStorage.getItem("admin")||"null")
+  const admin = JSON.parse(localStorage.getItem("admin")||"null")
 
-    if(user){
-      navigate(`/${user.fullName}`, {replace:true})
-      return
-    }
-
-    if(admin){
-      navigate(`/${admin.email}`, {replace:true})
-      return
-    }
-  },[navigate])
+  if(user || admin){
+    return <Navigate to="/guest" replace/>
+  }
 
   return (
     <main className="grid grid-cols-1 md:grid-cols-2 h-screen w-screen overflow-hidden">

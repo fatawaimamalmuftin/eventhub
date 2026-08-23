@@ -15,7 +15,7 @@ export default function Regis() {
   const onSubmit = (data) => {
     const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
     const idUser = {
-      id: dataLocal.length + 1, ...data,
+      id: dataLocal.length + 1, ...data,cart: []
     }
     const setData = [...dataLocal,idUser]
     window.localStorage.setItem("users",JSON.stringify(setData))

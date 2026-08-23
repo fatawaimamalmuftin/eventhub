@@ -4,8 +4,19 @@ import calendar from '../assets/calender.svg'
 import location from '../assets/location.svg'
 import users from '../assets/users.svg'
 import selectedContext from '../context/selected/selectedContext'
+import { useDispatch, useSelector } from 'react-redux'
+import { addCart,removeCart } from '../Redux/slice/userSlice.js'
 
 export default function CardEvent({ event, isShow, setShowDetail}) {
+  const userLogind = useSelector(
+      (state) => state.userState.user
+  )
+
+  const dispatch = useDispatch()
+
+  const isRegistered = userLogind?.cart?.some(
+      (item) => item.id === event.id
+  )
 
   const selectItem = useContext(selectedContext)
 
@@ -15,7 +26,9 @@ export default function CardEvent({ event, isShow, setShowDetail}) {
       e.preventDefault()
 
       selectItem.setSelected({
-        urlImages: event.image,
+        id: event.id,
+        // urlImages: event.image,
+        image: event.image,
         title: event.title,
         categories: event.categories,
         date: event.date,
@@ -85,10 +98,28 @@ export default function CardEvent({ event, isShow, setShowDetail}) {
         </div>
         <div className="flex gap-2">
 
-          <button className="btnBordColor w-full hover:hover"
-          onClick={()=>isShow(true)}
-          >
-            Join Event
+          <button
+            className={`w-full hover:hover ${
+              isRegistered
+                ? "bg-green-500 text-white border-green-500 rounded-2xl"
+                : "btnBordColor"
+            }`}
+            onClick={(e)=>{
+              e.stopPropagation()
+
+              if(!userLogind){
+                isShow(true)
+                return
+              }
+
+              if(isRegistered){
+                dispatch(removeCart(event.id))
+                return
+              }
+
+              dispatch(addCart(event))
+            }}>
+            {isRegistered ? "✓ Registered" : "Join Event"}
           </button>
 
           <button className="flex h-12 w-12 items-center justify-center rounded-xl border hover:bg-green-400  cursor-pointer">

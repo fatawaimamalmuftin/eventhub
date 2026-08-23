@@ -10,25 +10,23 @@ import Explore from "./pages/guest/Explore.jsx";
 import MyEvents from "./pages/guest/MyEvents.jsx";
 import UserLayout from "./components/layouts/UserLayout.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import EventDetail from "./components/EventDetail.jsx";
 
 export default function Router() {
   return (
     <Routes>
 
-      {/* guest */}
-      <Route path="/" element={<Navigate to="/guest" replace/>}/>
-      <Route path="/guest" element={<GuestLayout />}>
-        <Route index element={<Event />} />
-        <Route path="comunities" element={<Comunities />} />
-      </Route>
-
       {/* user */}
-      <Route path="/:username" element={<UserLayout/>}>
+      <Route path="/" element={<UserLayout/>}>
         <Route index element={<Event/>}/>
         <Route path="explore" element={<Explore/>}/>  
         <Route path="comunities" element={<Comunities/>}/>  
         <Route path="myevents" element={<MyEvents/>}/>  
+      </Route>
+
+      {/* guest */}
+      <Route path="/guest" element={<GuestLayout />}>
+        <Route index element={<Event />} />
+        <Route path="comunities" element={<Comunities />} />
       </Route>
 
       {/* auth */}
@@ -38,9 +36,6 @@ export default function Router() {
         <Route path="registration" element={<Regis />} />
         <Route path="forgotPassword" element={<Forgot />} />
       </Route>
-
-      {/* Detail */}
-      <Route path="/eventDetail" element={<EventDetail />} />
 
       {/* catch all */}
       <Route path="*" element={<NotFound />} />

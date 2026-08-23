@@ -4,32 +4,32 @@ import { NavLink } from 'react-router'
 import ModalLogout from './ModalLogout'
 import bel from '../assets/bel.svg'
 import shild from '../assets/shild.svg'
+import { useSelector } from 'react-redux'
 
 export default function Navbar() {
+    const userLogind = useSelector(
+        (state) => state.userState.user
+    )
 
-    const [userLogind,setUserLogind] = useState(null)
+    // const [userLogind,setUserLogind] = useState(null)
     const [admin, setAdmin] = useState(null)
     const [show, setShow] = useState(false)
     const [showAdmin, setShowAdmin] = useState(false)
     const [adminNav, setAdminNav] = useState(false)
 
     useEffect(()=>{
-        (async()=>{
-            const admin = JSON.parse(localStorage.getItem("admin")||"null")
-            if(admin){
+        const admin = JSON.parse(localStorage.getItem("admin")||"null")
+        if(admin){
+            (()=>{
                 setAdminNav(true)
                 setAdmin(admin)
-                return 
-            }
-            
-            const dataLocal = JSON.parse(localStorage.getItem("userLogind")||"null")
-            setUserLogind(dataLocal)
-        })()
+            })()
+        }
     },[])
 
     const profile = userLogind? userLogind.fullName[0].toUpperCase() : ""
 
-    const basePath = userLogind? `/${userLogind.fullName}` : admin? `/${admin.email}`: "/guest"
+    const basePath = userLogind || admin ? "" : "/guest"
 
   return (
     <nav className="veryCenter gap-8 py-4 px-14 bg-whiteFigma shadow-xl sticky top-0 z-2">
@@ -47,37 +47,41 @@ export default function Navbar() {
             <div>
                 <NavLink 
                 to={`${basePath}/explore`}
-                className={({isActive})=>isActive? "hover py-3 px-6" : "hover:btnBordColor py-2 px-4"}
+                className={({isActive})=>isActive? "hover py-2 px-4" : "hover:btnBordColor py-2 px-4"}
                 >
                     Explore
                 </NavLink>
             </div>
             }
 
-            <div>
-                <NavLink 
-                to={basePath}
+            <NavLink 
+                to="/guest"
                 end
-                className={({isActive})=>isActive? "hover py-3 px-6" : "hover:btnBordColor py-2 px-4"}
-                >
-                    Event
-                </NavLink>
-            </div>
+                className={({isActive}) =>
+                    isActive
+                        ? "hover py-2 px-4"
+                        : "hover:btnBordColor py-2 px-4"
+                }
+            >
+                Event
+            </NavLink>
             
-            <div>
-                <NavLink 
+           <NavLink 
                 to={`${basePath}/comunities`}
-                className={({isActive})=>isActive? "hover py-3 px-6" : "hover:btnBordColor py-2 px-4"}
-                >
-                    Communities
-                </NavLink>
-            </div>
+                className={({isActive}) =>
+                    isActive
+                        ? "hover py-2 px-4"
+                        : "hover:btnBordColor py-2 px-4"
+                }
+            >
+                Communities
+            </NavLink>
 
             {(userLogind || admin) &&
                 <div>
                     <NavLink 
                     to={`${basePath}/myevents`}
-                    className={({isActive})=>isActive? "hover py-3 px-6" : "hover:btnBordColor py-2 px-4"}
+                    className={({isActive})=>isActive? "hover py-2 px-4" : "hover:btnBordColor py-2 px-4"}
                     >
                         My Events
                     </NavLink>
@@ -128,16 +132,17 @@ export default function Navbar() {
             </div>
             :
             <button type="button" className={admin? `hidden` : `btnBordColor py-1 px-2 outline-none hover:hover`}>
-                <NavLink to={'/login'}>
+                <NavLink to={'/auth/login'}>
                     Sign In
                 </NavLink>
             </button>
             }
             
             {admin && 
-            <div className='relative' onClick={()=>setShowAdmin(true)}>
+            <div className='relative'>
                 <button className='relative w-10 h-10 outline-none rounded-full hover:rounded-4xl cursor-pointer overflow-hidden'
                 type="button"
+                onClick={() => showAdmin ? setShowAdmin(false) : setShowAdmin(true)}
                 >
                     <img src={admin.images} alt="profile" className="object-cover w-full h-full"/>
                 </button>

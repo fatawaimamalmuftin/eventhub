@@ -1,9 +1,17 @@
 import bookmark from "../../assets/bookmark.svg"
 import { useState } from "react"
+import { useSelector } from "react-redux"
+import CardEvent from "../../components/CardEvent.jsx"
 
 export default function MyEvents() {
 
     const [tab, setTab] = useState("upcoming")
+
+    const userLogind = useSelector(
+        (state) => state.userState.user
+    )
+
+    const cart = userLogind?.cart || []
 
     let title = "No upcoming events"
     let description = "Events you join will appear here."
@@ -38,7 +46,7 @@ export default function MyEvents() {
                                 : "text-gray-500 hover:hover"
                         }`}
                     >
-                        Upcoming (0)
+                        Upcoming ({cart.length})
                     </button>
 
                     <button
@@ -69,27 +77,44 @@ export default function MyEvents() {
 
             </section>
 
-            <section className="veryCenter flex-col py-20 gap-4">
+            {tab === "upcoming" && cart.length > 0 ? (
 
-                <img
-                    src={bookmark}
-                    alt="bookmark"
-                    className="w-10 h-10 opacity-50"
-                />
+                <section className="mainEvent grid grid-cols-3 gap-3">
 
-                <div className="text-center">
+                    {cart.map((event) => (
+                        <CardEvent
+                            key={event.id}
+                            event={event}
+                        />
+                    ))}
 
-                    <h2 className="font-semibold">
-                        {title}
-                    </h2>
+                </section>
 
-                    <p className="text-sm text-gray-400 mt-1">
-                        {description}
-                    </p>
+            ) : (
 
-                </div>
+                <section className="veryCenter flex-col py-20 gap-4">
 
-            </section>
+                    <img
+                        src={bookmark}
+                        alt="bookmark"
+                        className="w-10 h-10 opacity-50"
+                    />
+
+                    <div className="text-center">
+
+                        <h2 className="font-semibold">
+                            {title}
+                        </h2>
+
+                        <p className="text-sm text-gray-400 mt-1">
+                            {description}
+                        </p>
+
+                    </div>
+
+                </section>
+
+            )}
 
         </main>
     )
