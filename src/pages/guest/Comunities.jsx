@@ -82,12 +82,9 @@ export default function Comunities() {
             <div className='myBorder w-fit hover:hover'>
                 <span className='font-bold'>{Comunity.length} </span><span>events found</span>
             </div>
-            <div className='grid grid-cols-3 gap-3'>
-                {/* {Events.map((v)=>(<Card key={v.id} event={v}></Card>))}      */}
-            </div>
         </main>
 
-        <section className='grid grid-cols-4 gap-3 px-14 mb-5'>
+        <section className='grid md:grid-cols-4 grid-cols-1 gap-3 px-14 mb-5'>
             {Comunity.map((v)=><CardComunities key={v.id} Comunities={v} setShow={setIsShow}/>)}
         </section>
 

@@ -109,7 +109,7 @@ export default function Event() {
         <div className={`myBorder w-40 mb-5 hover:hover ${showDetail && "hidden"}`}>
             <span className='font-bold'>{dataEvent.length} </span><span>events found</span>
         </div>
-        <div className='grid grid-cols-3 gap-3'>
+        <div className='grid md:grid-cols-3 gap-3 grid-rows-1'>
             {dataEvent.map((v)=>(
                 <CardEvents 
                     key={v.id} 
