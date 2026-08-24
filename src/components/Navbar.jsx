@@ -30,9 +30,14 @@ export default function Navbar() {
     )
 
     const [admin, setAdmin] = useState(null)
-    const [show, setShow] = useState(false)
-    const [showAdmin, setShowAdmin] = useState(false)
     const [adminNav, setAdminNav] = useState(false)
+    const [showAdmin, setShowAdmin] = useState(false)
+    
+    const [comunities, setComunities] = useState(null)
+    const [comNav, setComNav] = useState(false)
+    const [showCom, setShowCom] = useState(false)
+
+    const [show, setShow] = useState(false)
     const [showMenu, setShowMenu] = useState(false)
 
 
@@ -42,12 +47,17 @@ export default function Navbar() {
             localStorage.getItem("admin") || "null"
         )
 
-        if(admin){
-            (()=>{
-                setAdminNav(true)
-                setAdmin(admin)
-            })()
+        const comunities = JSON.parse(
+            localStorage.getItem("comunities") || "null"
+        )
 
+        if(admin || comunities){
+            (()=>{
+                setAdmin(admin)
+                setComunities(comunities)
+                setAdminNav(true)
+                setComNav(true)
+            })()
         }
 
     }, [])
@@ -58,7 +68,7 @@ export default function Navbar() {
         : ""
 
 
-    const basePath = userLogind || admin
+    const basePath = userLogind || admin || comunities
         ? ""
         : "/guest"
 
@@ -67,8 +77,10 @@ export default function Navbar() {
             if (admin) {
     
                 setAdmin(false)
-    
                 localStorage.removeItem("admin")
+
+                setComunities(false)
+                localStorage.removeItem("comunities")
     
                 window.location.reload()
     
@@ -114,7 +126,7 @@ export default function Navbar() {
 
             <div className="hidden md:flex veryCenter gap-4">
 
-                {(userLogind || adminNav) &&
+                {(userLogind || adminNav || comNav) &&
                 <NavLink
                     to={`${basePath}/explore`}
                     className={({isActive}) =>
@@ -153,7 +165,7 @@ export default function Navbar() {
                 </NavLink>
 
 
-                {(userLogind || admin) &&
+                {(userLogind || admin || comunities) &&
                 <NavLink
                     to={`${basePath}/myevents`}
                     className={({isActive}) =>
@@ -170,7 +182,7 @@ export default function Navbar() {
 
             <div className="hidden md:flex veryCenter ml-auto gap-5">
 
-                {userLogind ?
+                {userLogind || comunities ?
 
                 <FiBell
                     className="w-5 h-5 cursor-pointer"
@@ -178,7 +190,7 @@ export default function Navbar() {
 
                 :
 
-                <div className={admin ? "hidden" : "text-gray-400"}>
+                <div className={admin || comunities ? "hidden" : "text-gray-400"}>
                     Browsing as guest
                 </div>
 
@@ -210,64 +222,82 @@ export default function Navbar() {
                     className="w-5 h-5 cursor-pointer"
                 />
 
-                {userLogind &&
+                {userLogind && (
+                    <div className="relative">
 
-                <div className="relative">
+                        <button
+                            type="button"
+                            className="relative btnBordColor py-1 px-2 w-10 h-10 outline-none hover:hover rounded-4xl text-2xl"
+                            onClick={() =>
+                                show
+                                    ? setShow(false)
+                                    : setShow(true)
+                            }
+                        >
+                            {profile}
+                        </button>
 
+                    </div>
+                )}
+
+                {!userLogind && !admin && !comunities && (
                     <button
                         type="button"
-                        className="relative btnBordColor py-1 px-2 w-10 h-10 outline-none hover:hover rounded-4xl text-2xl"
-                        onClick={() =>
-                            show
-                                ? setShow(false)
-                                : setShow(true)
-                        }
+                        className="btnBordColor py-1 px-2 outline-none hover:hover"
                     >
-                        {profile}
+                        <NavLink to="/auth/login">
+                            Sign In
+                        </NavLink>
                     </button>
+                )}
 
-                </div>
+                {admin && (
+                    <div className="relative">
 
-                }
+                        <button
+                            type="button"
+                            className="relative w-10 h-10 outline-none rounded-full hover:rounded-4xl cursor-pointer overflow-hidden"
+                            onClick={() =>
+                                showAdmin
+                                    ? setShowAdmin(false)
+                                    : setShowAdmin(true)
+                            }
+                        >
 
-                {!userLogind && !admin &&
+                            <img
+                                src={admin.images}
+                                alt="profile"
+                                className="object-cover w-full h-full"
+                            />
 
-                <button
-                    type="button"
-                    className="btnBordColor py-1 px-2 outline-none hover:hover"
-                >
-                    <NavLink to="/auth/login">
-                        Sign In
-                    </NavLink>
-                </button>
+                        </button>
 
-                }
+                    </div>
+                )}
 
-                {admin &&
+                {comunities && (
+                    <div className="relative">
 
-                <div className="relative">
+                        <button
+                            type="button"
+                            className="relative w-10 h-10 outline-none rounded-full hover:rounded-4xl cursor-pointer overflow-hidden"
+                            onClick={() =>
+                                showCom
+                                    ? setShowCom(false)
+                                    : setShowCom(true)
+                            }
+                        >
 
-                    <button
-                        type="button"
-                        className="relative w-10 h-10 outline-none rounded-full hover:rounded-4xl cursor-pointer overflow-hidden"
-                        onClick={() =>
-                            showAdmin
-                                ? setShowAdmin(false)
-                                : setShowAdmin(true)
-                        }
-                    >
+                            <img
+                                src={comunities.images}
+                                alt="profile"
+                                className="object-cover w-full h-full"
+                            />
 
-                        <img
-                            src={admin.images}
-                            alt="profile"
-                            className="object-cover w-full h-full"
-                        />
+                        </button>
 
-                    </button>
-
-                </div>
-
-                }
+                    </div>
+                )}
 
             </div>
 
@@ -493,7 +523,7 @@ export default function Navbar() {
                 {userLogind &&
 
                 <NavLink
-                    to={`/${userLogind.fullName}`}
+                    to={`myprofile`}
                     onClick={() => setShowMenu(false)}
                     className={({isActive}) =>
                         `flex items-center gap-4 px-6 py-4 text-lg ${
@@ -602,6 +632,15 @@ export default function Navbar() {
                 setShow={setShowAdmin}
                 admin={adminNav}
                 setAdmin={setAdminNav}
+            />
+            }
+
+            {showCom &&
+            <ModalLogout
+                show={showCom}
+                setShow={setShowCom}
+                comunities={comNav}
+                setComunities={setComNav}
             />
             }
 

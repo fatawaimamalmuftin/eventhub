@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { logout } from "../Redux/slice/userSlice.js"
 
-export default function ModalLogout({ show, admin = null, setAdmin = null }) {
+export default function ModalLogout({ show, admin = null, setAdmin = null, comunities = null, setComunities = null }) {
 
     const userLogind = useSelector(
         (state) => state.userState.user
@@ -12,15 +12,17 @@ export default function ModalLogout({ show, admin = null, setAdmin = null }) {
     function handleLogout() {
 
         if (admin) {
-
             setAdmin(false)
-
             localStorage.removeItem("admin")
-
             window.location.reload()
-
             return
+        }
 
+        if (comunities) {
+            setComunities(false)
+            localStorage.removeItem("comunities")
+            window.location.reload()
+            return
         }
 
         const dataLocal = JSON.parse(localStorage.getItem("users") || "[]")
@@ -44,7 +46,7 @@ export default function ModalLogout({ show, admin = null, setAdmin = null }) {
 
     return (
         <main
-            className={` absolute top-11 right-0 max-w-84 overflow-hidden rounded-2xl border  border-black/10  bg-white shadow-xl ${!show && "hidden"}`}>
+            className={` absolute top-15 right-15 max-w-84 overflow-hidden rounded-2xl border  border-black/10  bg-white shadow-xl ${!show && "hidden"}`}>
             {userLogind && (
                 <div className="px-7 py-5">
 

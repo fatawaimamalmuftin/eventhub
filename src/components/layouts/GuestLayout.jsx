@@ -8,8 +8,10 @@ export default function GuestLayout() {
   const user = useSelector((state) => state.userState.user)
 
   const admin = JSON.parse(localStorage.getItem("admin")||"null")
+  
+  const comunities = JSON.parse(localStorage.getItem("comunities")||"null")
 
-  if(user || admin){
+  if(user || admin || comunities){
     return <Navigate to="/" replace/>
   }
 
