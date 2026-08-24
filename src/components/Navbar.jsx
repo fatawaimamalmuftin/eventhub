@@ -18,7 +18,7 @@ import {
     FiLogIn,
     FiLogOut,
     FiGrid,
-    FiShield
+    FiShield,
 } from 'react-icons/fi'
 
 
@@ -182,7 +182,7 @@ export default function Navbar() {
 
             <div className="hidden md:flex veryCenter ml-auto gap-5">
 
-                {userLogind || comunities ?
+                {userLogind ?
 
                 <FiBell
                     className="w-5 h-5 cursor-pointer"
@@ -213,6 +213,21 @@ export default function Navbar() {
                     />
 
                 </div>
+                }
+
+                {comunities &&
+                <>
+                    <button className="veryCenter gap-2 hover:hover px-4 py-2 text-gray-400 text-xl">
+                        <FiGrid
+                            className="w-5 h-5 cursor-pointer"
+                        />
+                            Comunities
+                    </button>
+                    
+                    <FiBell
+                        className="w-5 h-5 cursor-pointer ml-6"
+                    />
+                </>
                 }
 
 
