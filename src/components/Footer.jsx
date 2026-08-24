@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="borderFooter max-md:mx-6 max-md:my-4 max-md:rounded-3xl max-md:bg-[#171717] max-md:px-6 max-md:py-10">
+    <footer className="borderFooter max-md:mx-6 max-md:my-4 max-md:rounded-3xl max-md:bg-blackFigma max-md:px-6 max-md:py-10">
 
         <div className="veryCenter gap-4">
             <div className="text-biruFigma bg-bgBiruFigma py-1 px-2 rounded-xl">
