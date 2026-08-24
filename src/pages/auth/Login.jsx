@@ -114,7 +114,7 @@ export default function Login() {
               required: "Email is required",
               validate:{
                 isRegisted : (v) => {
-                  if(v === import.meta.env.VITE_USERNAME){
+                  if(v === import.meta.env.VITE_USERNAME || v === import.meta.env.VITE_COM_USERNAME){
                     return true
                   } else if (!(v.includes("@"))) {
                     return "there must be an @ character"
@@ -160,7 +160,7 @@ export default function Login() {
               validate: {
                 isCorrect : (v,fs) => {
                   const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
-                  if(v === import.meta.env.VITE_PASSWORD){
+                  if(v === import.meta.env.VITE_PASSWORD || v === import.meta.env.VITE_COM_PASSWORD){
                     return true
                   }else{
                     const isRegis = dataLocal.some((u) => u.email.toLowerCase() === fs.email?.toLowerCase() && u.password === v)
