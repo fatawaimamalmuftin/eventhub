@@ -45,7 +45,7 @@ export default function Explore() {
     return (
         <main>
 
-            <section className={`bg-hitamFigma text-white px-5 py-15 text-center ${showDetail && "hidden"}`}>
+            <section className={`bg-blackFigma text-white px-5 py-15 text-center ${showDetail && "hidden"}`}>
                 <div className="max-w-3xl mx-auto">
 
                     <div className="inline-block rounded-full bg-orangeFigma/10 text-orangeFigma text-xs px-3 py-1 mb-5">

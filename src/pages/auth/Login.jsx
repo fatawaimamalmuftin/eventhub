@@ -29,6 +29,16 @@ export default function Login() {
       return
     }
 
+    if(data.email === import.meta.env.VITE_COM_USERNAME && data.password === import.meta.env.VITE_COM_PASSWORD){
+      
+      data.images = "https://i.pinimg.com/736x/19/ad/7e/19ad7edff92d85bf46b28cebd129060b.jpg"
+
+      localStorage.setItem("comunities",JSON.stringify(data))
+
+      navigate('/')
+      return
+    }
+
     const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
     
     const isLogind = dataLocal.find((e)=> e.email === data.email)
