@@ -10,6 +10,7 @@ import Explore from "./pages/guest/Explore.jsx";
 import MyEvents from "./pages/guest/MyEvents.jsx";
 import UserLayout from "./components/layouts/UserLayout.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import ComunitiesDash from "./pages/guest/ComunitiesDash.jsx";
 
 export default function Router() {
   return (
@@ -20,7 +21,8 @@ export default function Router() {
         <Route index element={<Event/>}/>
         <Route path="explore" element={<Explore/>}/>  
         <Route path="comunities" element={<Comunities/>}/>  
-        <Route path="myevents" element={<MyEvents/>}/>  
+        <Route path="myevents" element={<MyEvents/>}/>
+        <Route path="comunitiesDash" element={<ComunitiesDash/>}/>
       </Route>
 
       {/* guest */}

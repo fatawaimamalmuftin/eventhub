@@ -217,13 +217,17 @@ export default function Navbar() {
 
                 {comunities &&
                 <>
-                    <button className="veryCenter gap-2 hover:hover px-4 py-2 text-gray-400 text-xl">
+                    <NavLink
+                    to={`${basePath}/comunitiesDash`}
+                    className={({isActive})=> isActive ? 
+                    "hover veryCenter py-2 px-4 gap-2 " : 
+                    "myBorder veryCenter gap-2 py-2 px-4 hover:hover"}>
                         <FiGrid
                             className="w-5 h-5 cursor-pointer"
                         />
                             Comunities
-                    </button>
-                    
+                        </NavLink>
+
                     <FiBell
                         className="w-5 h-5 cursor-pointer ml-6"
                     />
