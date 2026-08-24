@@ -37,7 +37,7 @@
 }
 
 @utility borderFooter{
-  @apply veryCenter flex-col mx-15 mb-10 bg-hitamFigma rounded-2xl text-whiteFigma py-12 gap-5
+  @apply veryCenter flex-col mx-15 mb-10 bg-blackFigma rounded-2xl text-whiteFigma py-12 gap-5
 }
 
 @utility mainEvent{
