@@ -10,7 +10,6 @@ export default function AuthLayout() {
 
   const comunities = JSON.parse(localStorage.getItem("comunities")||"null")
 
-
   if(user || admin || comunities){
     return <Navigate to="/guest" replace/>
   }
