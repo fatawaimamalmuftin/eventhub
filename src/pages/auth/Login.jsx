@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 // import userLogindContex from "../../context/userLogind/userLogindContext"
 import { useDispatch } from "react-redux"
 import { login } from "../../Redux/slice/userSlice.js"
+import UseGetItem from '../../Hooks/UseGetItem.js'
 
 export default function Login() {
   // const user = useContext(userLogindContex)
@@ -39,7 +40,7 @@ export default function Login() {
       return
     }
 
-    const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
+    const dataLocal = UseGetItem("users","[]")
     
     const isLogind = dataLocal.find((e)=> e.email === data.email)
 
