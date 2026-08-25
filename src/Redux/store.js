@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slice/userSlice.js";
 import storage from "./solfBug.js";
 import {FLUSH,REHYDRATE,PAUSE,PERSIST,PURGE,REGISTER} from "redux-persist";
+import eventsReducer from "./slice/eventSlice"
 
 import {
     persistStore,
@@ -24,7 +25,8 @@ const store = configureStore({
         userState: persistReducer(
             persistUserConfig,
             userReducer
-        )
+        ),
+        eventState: eventsReducer
 
     },
 
