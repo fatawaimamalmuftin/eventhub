@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
-import { logout } from "../Redux/slice/userSlice.js"
+import { editProfile, logout } from "../Redux/slice/userSlice.js"
+import { Link } from "react-router"
 
 export default function ModalLogout({ show, admin = null, setAdmin = null, comunities = null, setComunities = null }) {
 
@@ -8,6 +9,10 @@ export default function ModalLogout({ show, admin = null, setAdmin = null, comun
     )
 
     const dispatch = useDispatch()
+
+    const profile = userLogind
+        ? userLogind.fullName[0].toUpperCase()
+        : ""
 
     function handleLogout() {
 
@@ -48,25 +53,54 @@ export default function ModalLogout({ show, admin = null, setAdmin = null, comun
         <main
             className={` absolute top-15 right-15 max-w-84 overflow-hidden rounded-2xl border  border-black/10  bg-white shadow-xl ${!show && "hidden"}`}>
             {userLogind && (
-                <div className="px-7 py-5">
-
-                    <div className="text-2xl font-semibold whitespace-nowrap">
-                        {userLogind.fullName}
+                <div className="veryCenter px-4">
+                    <div
+                        type="button"
+                        className="w-10 h-10 bg-orangeFigma text-white rounded-full cursor-pointer outline-none overflow-hidden veryCenter text-2xl"
+                    >
+                        {userLogind?.profile ? (
+                            <img
+                                src={userLogind.profile}
+                                alt="Profile"
+                                className="w-full h-full object-cover"
+                                onError={() => {
+                                    dispatch(editProfile({
+                                        profile: null
+                                    }))
+                                }}
+                            />
+                        ) : (
+                            profile
+                        )}
                     </div>
 
-                    <div className="text-lg text-gray-400">
-                        {userLogind.email}
-                    </div>
+                    <div className="px-4 py-5">
 
+                        <div className="text-2xl font-semibold whitespace-nowrap">
+                            {userLogind.fullName}
+                        </div>
+
+                        <div className="text-lg text-gray-400">
+                            {userLogind.email}
+                        </div>
+
+                    </div>
                 </div>
             )}
 
+            {admin && 
+                <div className="border-t border-gray-200 px-7 py-4 text-xl text-gray-700 hover:bg-gray-200 cursor-pointer whitespace-nowrap">
+                    Admin Dashboard
+                </div>
+            }
 
-            <div className="border-t border-gray-200 px-7 py-4 text-xl text-gray-700 hover:bg-gray-200 cursor-pointer whitespace-nowrap">
-
-                {admin ? "Admin Dashboard" : "My Profile"}
-
-            </div>
+            {userLogind &&
+            <Link to="/myprofile">
+                <div className="border-t border-gray-200 px-7 py-4 text-xl text-gray-700 hover:bg-gray-200 cursor-pointer whitespace-nowrap">
+                    My Profile
+                </div>
+            </Link>
+            }
 
 
             <button

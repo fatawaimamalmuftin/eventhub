@@ -19,7 +19,9 @@ export default function Regis() {
       id: dataLocal.length + 1, 
       ...data,
       cart: [],
-      bio:""
+      bio: null,
+      location: null,
+      profile: null
     }
     const setData = [...dataLocal,idUser]
     window.localStorage.setItem("users",JSON.stringify(setData))

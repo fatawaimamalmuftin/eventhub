@@ -26,6 +26,15 @@ const userSlice = createSlice({
 
         },
 
+        editProfile: (prevState, {payload}) => {
+            return{
+                user: {
+                    ...prevState.user,
+                    ...payload
+                }
+            }
+        },
+
         addCart: (prevState, {payload}) => {
 
             const isRegistered = prevState.user.cart.some(
@@ -94,6 +103,7 @@ const userSlice = createSlice({
 export const {
 
     login,
+    editProfile,
     addCart,
     removeCart,
     logout

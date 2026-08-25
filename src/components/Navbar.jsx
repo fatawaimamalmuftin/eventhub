@@ -3,7 +3,7 @@ import { NavLink } from 'react-router'
 import { useSelector } from 'react-redux'
 import ModalLogout from './ModalLogout'
 import { useDispatch } from 'react-redux'
-import { logout } from '../Redux/slice/userSlice.js'
+import { editProfile, logout } from '../Redux/slice/userSlice.js'
 
 import moon from '../assets/moon.svg'
 
@@ -243,17 +243,25 @@ export default function Navbar() {
 
                 {userLogind && (
                     <div className="relative">
-
                         <button
                             type="button"
-                            className="relative btnBordColor py-1 px-2 w-10 h-10 outline-none hover:hover rounded-4xl text-2xl"
-                            onClick={() =>
-                                show
-                                    ? setShow(false)
-                                    : setShow(true)
-                            }
+                            className="w-10 h-10 bg-orangeFigma text-white rounded-full cursor-pointer outline-none overflow-hidden veryCenter text-2xl"
+                            onClick={() => setShow(!show)}
                         >
-                            {profile}
+                            {userLogind?.profile ? (
+                                <img
+                                    src={userLogind.profile}
+                                    alt="Profile"
+                                    className="w-full h-full object-cover"
+                                    onError={() => {
+                                        dispatch(editProfile({
+                                            profile: null
+                                        }))
+                                    }}
+                                />
+                            ) : (
+                                profile
+                            )}
                         </button>
 
                     </div>
