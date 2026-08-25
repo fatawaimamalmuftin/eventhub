@@ -1,14 +1,30 @@
 import search from "../../assets/search.svg";
 import filter from "../../assets/filter.svg";
 import CardEvents from "../../components/CardEvent.jsx";
-import Events from "../../lib/dummyEvent.js";
+// import Events from "../../lib/dummyEvent.js";
 import { useState, useEffect, useContext } from "react";
 import Modal from "../../components/Modal.jsx";
 import CardFilterCompo from '../../components/CardFilterCompo.jsx'
 import EventDetail from "../../components/EventDetail.jsx";
 import selectedContext from "../../context/selected/selectedContext.js";
+import { useDispatch, useSelector } from "react-redux";
+import { getEventThunk } from "../../Redux/slice/eventSlice.js";
 
 export default function Event() {
+    const dispatch = useDispatch()
+
+    const Events = useSelector(
+        (state)=> state.eventState.events
+    )
+
+    const isPending = useSelector(
+        (state)=> state.eventState.isPending
+    )
+
+    useEffect(()=>{
+        dispatch(getEventThunk())     
+    },[dispatch])
+
     const [isShow,setIsShow] = useState(false)
     const [searchEvent,setSearchEvent] = useState("")
     const [category,setCategory] = useState("")
@@ -109,15 +125,24 @@ export default function Event() {
         <div className={`myBorder w-40 mb-5 hover:hover ${showDetail && "hidden"}`}>
             <span className='font-bold'>{dataEvent.length} </span><span>events found</span>
         </div>
-        <div className='grid md:grid-cols-3 gap-3 grid-rows-1'>
-            {dataEvent.map((v)=>(
-                <CardEvents 
-                    key={v.id} 
-                    event={v} 
-                    isShow={setIsShow}
-                    setShowDetail={setShowDetail}
-                />))}     
-        </div>
+        {isPending ?
+
+            <div className="veryCenter h-screen w-screen">
+                <p>Loading...</p>
+            </div>
+
+            :
+
+            <div className='grid md:grid-cols-3 gap-3 grid-rows-1'>
+                {dataEvent.map((v)=>(
+                    <CardEvents 
+                        key={v.id} 
+                        event={v} 
+                        isShow={setIsShow}
+                        setShowDetail={setShowDetail}
+                    />))}     
+            </div>
+        }
         <div className='veryCenter'>
                 <button className={`myBorder mt-10 w-fit veryCenter hover:hover hover:border-orangeFigma ${showDetail && "hidden"}`}
                 onClick={()=>showMore? setShowMore(false) : setShowMore(true)}
