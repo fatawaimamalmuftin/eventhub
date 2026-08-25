@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
+import UseGetItem from "../../Hooks/UseGetItem"
 
 export default function Regis() {
 
@@ -13,7 +14,7 @@ export default function Regis() {
   } = useForm()
 
   const onSubmit = (data) => {
-    const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
+    const dataLocal = UseGetItem("users","[]")
     const idUser = {
       id: dataLocal.length + 1, 
       ...data,
