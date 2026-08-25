@@ -81,7 +81,7 @@ export default function FormCreateStep3({ page3, register }) {
               </span>
 
               <span>
-                12:12 – 14:14 WIB
+                12:12 - 14:14 WIB
               </span>
             </div>
 
