@@ -11,6 +11,7 @@ import MyEvents from "./pages/guest/MyEvents.jsx";
 import UserLayout from "./components/layouts/UserLayout.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import ComunitiesDash from "./pages/guest/ComunitiesDash.jsx";
+import CreateEvent from "./pages/guest/CreateEvent.jsx";
 
 export default function Router() {
   return (
@@ -23,6 +24,7 @@ export default function Router() {
         <Route path="comunities" element={<Comunities/>}/>  
         <Route path="myevents" element={<MyEvents/>}/>
         <Route path="comunitiesDash" element={<ComunitiesDash/>}/>
+        <Route path="createEvent" element={<CreateEvent/>}/>
       </Route>
 
       {/* guest */}
