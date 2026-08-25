@@ -14,6 +14,7 @@ import {
 import { Bar } from "react-chartjs-2";
 import dataChart from "../../lib/dataChart.js";
 import chartOptions from "../../lib/chartOptions.js";
+import { Link } from "react-router";
 
 
 ChartJS.register(
@@ -32,10 +33,10 @@ export default function ComunitiesDash() {
                 <div className="text-gray-500">Manage your events and track performance.</div>
             </div>
             <div>
-                <button className="veryCenter gap-2 btnBordColor hover:hover"> 
+                <Link to="/createEvent" className="veryCenter gap-2 btnBordColor hover:hover"> 
                     <FaPlus />
                     Create Event
-                </button>
+                </Link>
             </div>
         </header>
 
