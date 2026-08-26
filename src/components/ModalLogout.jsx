@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
-import { editProfile, logout } from "../Redux/slice/userSlice.js"
+import { logout } from "../Redux/slice/userSlice.js"
 import { Link } from "react-router"
 
 export default function ModalLogout({ show, admin = null, setAdmin = null, comunities = null, setComunities = null }) {
@@ -63,11 +63,6 @@ export default function ModalLogout({ show, admin = null, setAdmin = null, comun
                                 src={userLogind.profile}
                                 alt="Profile"
                                 className="w-full h-full object-cover"
-                                onError={() => {
-                                    dispatch(editProfile({
-                                        profile: null
-                                    }))
-                                }}
                             />
                         ) : (
                             profile
