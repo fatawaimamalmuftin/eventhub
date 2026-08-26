@@ -10,6 +10,8 @@ export default function Login() {
   // const user = useContext(userLogindContex)
   const dispatch = useDispatch()
 
+  const dataLocal = UseGetItem("users","[]")
+
   const {
     handleSubmit,
     register,
@@ -39,8 +41,6 @@ export default function Login() {
       navigate('/')
       return
     }
-
-    const dataLocal = UseGetItem("users","[]")
     
     const isLogind = dataLocal.find((e)=> e.email === data.email)
 
@@ -49,19 +49,6 @@ export default function Login() {
     reset()
 
     navigate('/')
-
-    // const isLogind = dataLocal.find((e)=> e.name === data.name && e.email === data.email)
-    // isLogind.isLogind = true
-
-    // user.setUserLogind({
-    //     id: isLogind.id,
-    //     fullName: isLogind.fullName,
-    //     email: isLogind.email,
-    // })
-
-    // localStorage.setItem("userLogind", JSON.stringify(isLogind))
-    // reset()
-    // navigate('/')
   }
 
   return (
