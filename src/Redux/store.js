@@ -3,11 +3,13 @@ import userReducer from "./slice/userSlice.js";
 import storage from "./solfBug.js";
 import {FLUSH,REHYDRATE,PAUSE,PERSIST,PURGE,REGISTER} from "redux-persist";
 import eventsReducer from "./slice/eventSlice"
+import usersReducer from './slice/usersSlice.js'
 
 import {
     persistStore,
     persistReducer
 } from "redux-persist";
+import persistCombineReducers from "redux-persist/es/persistCombineReducers.js";
 
 
 const persistUserConfig = {
@@ -18,17 +20,36 @@ const persistUserConfig = {
 
 }
 
+const persistUsersConfig = {
+
+    key: "users",
+
+    storage
+}
+
+const EventHubManajementPersist = {
+
+    key: "EventHubManajement",
+
+    storage
+}
+
 const store = configureStore({
 
-    reducer: {
+    reducer: persistCombineReducers(EventHubManajementPersist,{
 
         userState: persistReducer(
             persistUserConfig,
             userReducer
         ),
-        eventState: eventsReducer
 
-    },
+        usersState: persistReducer(
+            persistUsersConfig,
+            usersReducer
+        ),
+
+        eventState: eventsReducer
+    }),
 
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
