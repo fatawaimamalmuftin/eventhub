@@ -9,6 +9,7 @@ import EventDetail from "../../components/EventDetail.jsx";
 import selectedContext from "../../context/selected/selectedContext.js";
 import { useDispatch, useSelector } from "react-redux";
 import { getEventThunk } from "../../Redux/slice/eventSlice.js";
+import { Oval } from "react-loader-spinner";
 
 export default function Event() {
     const dispatch = useDispatch()
@@ -127,8 +128,17 @@ export default function Event() {
         </div>
         {isPending ?
 
-            <div className="veryCenter h-screen w-screen">
-                <p>Loading...</p>
+            <div className="py-30 veryCenter">
+                <Oval
+                height={50}
+                width={50}
+                color="#f97316"
+                visible={true}
+                ariaLabel="oval-loading"
+                secondaryColor="#ddd"
+                strokeWidth={4}
+                strokeWidthSecondary={4}
+                />
             </div>
 
             :
