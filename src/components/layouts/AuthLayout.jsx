@@ -3,6 +3,9 @@ import SideBarAuth from "../SideBarAuth"
 import { useSelector } from "react-redux"
 import UseGetItem from "../../Hooks/UseGetItem"
 
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 export default function AuthLayout() {
 
   const user = useSelector((state) => state.userState.user)
@@ -22,6 +25,8 @@ export default function AuthLayout() {
       <section className="h-screen overflow-y-auto">
         <Outlet />
       </section>
+
+      <ToastContainer position="top-center"/>
     </main>
   )
 }

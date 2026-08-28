@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
 import { login } from "../../Redux/slice/userSlice.js"
 import UseGetItem from '../../Hooks/UseGetItem.js'
+import { toast } from "react-toastify"
 
 export default function Login() {
   // const user = useContext(userLogindContex)
@@ -44,11 +45,16 @@ export default function Login() {
     
     const isLogind = dataLocal.find((e)=> e.email === data.email)
 
-    dispatch(login(isLogind))
-
+    toast.success("login successful", {
+      autoClose: 1000
+    })
+    
     reset()
-
-    navigate('/')
+    
+    setTimeout(()=>{
+      dispatch(login(isLogind))
+      navigate('/', {replace:true})
+    },1500)
   }
 
   return (

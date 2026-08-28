@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
 import UseGetItem from "../../Hooks/UseGetItem"
+import { toast } from "react-toastify"
 
 export default function Regis() {
 
@@ -25,9 +26,16 @@ export default function Regis() {
     }
     const setData = [...dataLocal,idUser]
     window.localStorage.setItem("users",JSON.stringify(setData))
-    reset()
 
-    navigate("/auth/login", {replace:true})
+    toast.success("successfully registered as a user", {
+      autoClose: 1000
+    })
+    
+    reset()
+    
+    setTimeout(()=>{
+      navigate("/auth/login", {replace:true})
+    },1500)
   }
 
   return (
