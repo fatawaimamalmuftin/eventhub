@@ -30,7 +30,7 @@ const eventSlice = createSlice({
     initialState,
     extraReducers: (builder)=>{
         return builder.addAsyncThunk(getEventThunk,{
-            pandding: (state) => {
+            pending: (state) => {
                 state.isPending = true
                 state.isFulfilled = false
                 state.isRejected = false
@@ -42,7 +42,7 @@ const eventSlice = createSlice({
                 state.isFulfilled = true
             },
             rejected: (state,{payload}) =>{
-                state.pandding = false
+                state.isPending = false
                 state.isRejected = true
                 state.error = payload
             }
