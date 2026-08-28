@@ -5,6 +5,7 @@ import UseGetItem from "../../Hooks/UseGetItem"
 export default function Regis() {
 
   const navigate = useNavigate()
+  const dataLocal = UseGetItem("users","[]")
   
   const {
     handleSubmit,
@@ -14,7 +15,6 @@ export default function Regis() {
   } = useForm()
 
   const onSubmit = (data) => {
-    const dataLocal = UseGetItem("users","[]")
     const idUser = {
       id: dataLocal.length + 1, 
       ...data,
