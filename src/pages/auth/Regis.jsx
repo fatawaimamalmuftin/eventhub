@@ -22,7 +22,8 @@ export default function Regis() {
       cart: [],
       bio: null,
       location: null,
-      profile: null
+      profile: null,
+      created_at: new Date().toISOString()
     }
     const setData = [...dataLocal,idUser]
     window.localStorage.setItem("users",JSON.stringify(setData))
@@ -32,7 +33,7 @@ export default function Regis() {
     })
     
     reset()
-    
+
     setTimeout(()=>{
       navigate("/auth/login", {replace:true})
     },1500)

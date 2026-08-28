@@ -79,7 +79,10 @@ export default function MyProfile() {
 
                         <div className="flex items-center gap-1">
                             <CiCalendar/>
-                            Joined March 2025
+                            Joined {new Date(userLogind.created_at).toLocaleDateString("id-ID", {
+                                month: "long",
+                                year: "numeric",
+                            })}
                         </div>
 
                         <div className="inline-block px-2 py-1 bg-orangeFigma/30 text-orangeFigma rounded-2xl text-xs">
