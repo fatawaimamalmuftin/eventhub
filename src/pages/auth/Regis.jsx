@@ -2,8 +2,11 @@ import { Link, useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
 import UseGetItem from "../../Hooks/UseGetItem"
 import { toast } from "react-toastify"
+import { useDispatch } from "react-redux"
+import { regis } from "../../Redux/slice/usersSlice"
 
 export default function Regis() {
+  const dispatch = useDispatch()
 
   const navigate = useNavigate()
   const dataLocal = UseGetItem("users","[]")
@@ -16,7 +19,7 @@ export default function Regis() {
   } = useForm()
 
   const onSubmit = (data) => {
-    const idUser = {
+    const user = {
       id: dataLocal.length + 1, 
       ...data,
       cart: [],
@@ -25,8 +28,8 @@ export default function Regis() {
       profile: null,
       created_at: new Date().toISOString()
     }
-    const setData = [...dataLocal,idUser]
-    window.localStorage.setItem("users",JSON.stringify(setData))
+    // const setData = [...dataLocal,user]
+    // window.localStorage.setItem("users",JSON.stringify(setData))
 
     toast.success("successfully registered as a user", {
       autoClose: 1000
@@ -35,6 +38,7 @@ export default function Regis() {
     reset()
 
     setTimeout(()=>{
+      dispatch(regis(user))
       navigate("/auth/login", {replace:true})
     },1500)
   }
