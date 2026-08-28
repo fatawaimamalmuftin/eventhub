@@ -1,11 +1,16 @@
 import { useDispatch, useSelector } from "react-redux"
-import { logout } from "../Redux/slice/userSlice.js"
+import { logout } from '../Redux/slice/userSlice.js'
 import { Link } from "react-router"
+import { updateUsers } from '../Redux/slice/usersSlice.js'
 
 export default function ModalLogout({ show, admin = null, setAdmin = null, comunities = null, setComunities = null }) {
 
     const userLogind = useSelector(
         (state) => state.userState.user
+    )
+
+    const users = useSelector(
+        (state) => state.usersState.users
     )
 
     const dispatch = useDispatch()
@@ -30,22 +35,27 @@ export default function ModalLogout({ show, admin = null, setAdmin = null, comun
             return
         }
 
-        const dataLocal = JSON.parse(localStorage.getItem("users") || "[]")
+        // const dataLocal = JSON.parse(localStorage.getItem("users") || "[]")
 
-        const setData = dataLocal.map((user) => {
+        const setData = users.map((user) => {
 
             if (user.id === userLogind.id) {
 
                 return {
                     ...user,
-                    cart: userLogind.cart
+                    profile: userLogind.profile,
+                    location: userLogind.location,
+                    bio: userLogind.bio,
+                    cart: userLogind.cart,
+                    update_at: new Date()
                 }
             }
             return user
         })
 
-        localStorage.setItem("users",JSON.stringify(setData))
+        // localStorage.setItem("users",JSON.stringify(setData))
 
+        dispatch(updateUsers(setData))
         dispatch(logout())
     }
 

@@ -17,8 +17,6 @@ export default function MyProfile() {
     const [show, setShow] = useState("events")
     const [showModal, setShowModal] = useState(false)
 
-    console.log(userLogind)
-
   return (
     <>
         <ModalEditProfile showModal={showModal} setShowModal={setShowModal}/>

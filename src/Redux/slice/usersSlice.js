@@ -26,6 +26,12 @@ const usersSlice = createSlice({
 
             }
 
+        },
+        
+        updateUsers: (prevState, {payload}) => {
+
+            prevState.users = payload
+            
         }
 
     }
@@ -33,7 +39,8 @@ const usersSlice = createSlice({
 })
 
 export const {
-    regis
+    regis,
+    updateUsers
 } = usersSlice.actions
 
 export default usersSlice.reducer
