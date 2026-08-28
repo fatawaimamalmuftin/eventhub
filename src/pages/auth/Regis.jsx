@@ -1,15 +1,19 @@
 import { Link, useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
-import UseGetItem from "../../Hooks/UseGetItem"
+// import UseGetItem from "../../Hooks/UseGetItem"
 import { toast } from "react-toastify"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { regis } from "../../Redux/slice/usersSlice"
 
 export default function Regis() {
   const dispatch = useDispatch()
 
+  const users = useSelector(
+    (state) => state.usersState.users
+  )
+
   const navigate = useNavigate()
-  const dataLocal = UseGetItem("users","[]")
+  // const dataLocal = UseGetItem("users","[]")
   
   const {
     handleSubmit,
@@ -20,7 +24,7 @@ export default function Regis() {
 
   const onSubmit = (data) => {
     const user = {
-      id: dataLocal.length + 1, 
+      id: users.length + 1, 
       ...data,
       cart: [],
       bio: null,
@@ -114,8 +118,8 @@ export default function Regis() {
             {...register("email",{
               required : "Email is required",
               validate: (value) => {
-                const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
-                const isRegisted = dataLocal.some((u)=> u.email.toLowerCase() === value.toLowerCase())
+                // const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
+                const isRegisted = users.some((u)=> u.email.toLowerCase() === value.toLowerCase())
                 return !isRegisted || "Email is registered"
               }
             })}

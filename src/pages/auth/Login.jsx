@@ -2,16 +2,20 @@ import { Link,useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
 // import { useContext } from "react"
 // import userLogindContex from "../../context/userLogind/userLogindContext"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { login } from "../../Redux/slice/userSlice.js"
-import UseGetItem from '../../Hooks/UseGetItem.js'
+// import UseGetItem from '../../Hooks/UseGetItem.js'
 import { toast } from "react-toastify"
 
 export default function Login() {
   // const user = useContext(userLogindContex)
   const dispatch = useDispatch()
 
-  const dataLocal = UseGetItem("users","[]")
+  const users = useSelector(
+    (state) => state.usersState.users
+  )
+
+  // const dataLocal = UseGetItem("users","[]")
 
   const {
     handleSubmit,
@@ -43,7 +47,7 @@ export default function Login() {
       return
     }
     
-    const isLogind = dataLocal.find((e)=> e.email === data.email)
+    const isLogind = users.find((e)=> e.email === data.email)
 
     toast.success("login successful", {
       autoClose: 1000
@@ -113,8 +117,8 @@ export default function Login() {
                   } else if (!(v.includes("@"))) {
                     return "there must be an @ character"
                   } else {
-                    const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
-                    const isRegis = dataLocal.some((u) => u.email.toLowerCase() === v.toLowerCase())
+                    // const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
+                    const isRegis = users.some((u) => u.email.toLowerCase() === v.toLowerCase())
                     return isRegis || "This email not registered"
                   }
                 }
@@ -153,11 +157,11 @@ export default function Login() {
               },
               validate: {
                 isCorrect : (v,fs) => {
-                  const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
+                  // const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
                   if(v === import.meta.env.VITE_PASSWORD || v === import.meta.env.VITE_COM_PASSWORD){
                     return true
                   }else{
-                    const isRegis = dataLocal.some((u) => u.email.toLowerCase() === fs.email?.toLowerCase() && u.password === v)
+                    const isRegis = users.some((u) => u.email.toLowerCase() === fs.email?.toLowerCase() && u.password === v)
                     return isRegis || "This email or password not registered"
                   }
                 }
