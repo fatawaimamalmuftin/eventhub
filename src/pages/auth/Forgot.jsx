@@ -128,7 +128,7 @@ export default function Forgot() {
                 />
 
                 <div
-                  className="shrink-0 text-orangeFigma cursor-pointer"
+                  className="shrink-0 text-gray-400 cursor-pointer"
                   onClick={() =>
                     eye === "close"
                       ? setEye("open")

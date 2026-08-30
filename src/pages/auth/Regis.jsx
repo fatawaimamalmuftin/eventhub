@@ -155,7 +155,7 @@ export default function Regis() {
             />
 
             <div
-              className="text-orangeFigma cursor-pointer"
+              className="text-gray-400 cursor-pointer"
               onClick={() =>
                 eyePassword === "close"
                   ? setEyePassword("open")
@@ -193,7 +193,7 @@ export default function Regis() {
             />
 
             <div
-              className="text-orangeFigma cursor-pointer"
+              className="text-gray-400 cursor-pointer"
               onClick={() =>
                 eyeConfirmPassword === "close"
                   ? setEyeConfirmPassword("open")
