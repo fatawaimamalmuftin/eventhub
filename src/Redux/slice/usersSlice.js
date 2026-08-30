@@ -32,6 +32,14 @@ const usersSlice = createSlice({
 
             prevState.users = payload
             
+        },
+
+        changePassword: (prevState, {payload}) => {
+            const user = prevState.users.find((e)=> e.id === payload.id)
+
+            if(user){
+                user.password = payload.password
+            }
         }
 
     }
@@ -40,7 +48,8 @@ const usersSlice = createSlice({
 
 export const {
     regis,
-    updateUsers
+    updateUsers,
+    changePassword
 } = usersSlice.actions
 
 export default usersSlice.reducer
