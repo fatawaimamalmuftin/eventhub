@@ -3,6 +3,9 @@ import { useForm } from "react-hook-form"
 import { useDispatch, useSelector } from "react-redux"
 import { login } from "../../Redux/slice/userSlice.js"
 import { toast } from "react-toastify"
+import { FaEyeSlash } from "react-icons/fa6"
+import { FaEye } from "react-icons/fa"
+import { useState } from "react"
 
 export default function Login() {
   const dispatch = useDispatch()
@@ -10,6 +13,8 @@ export default function Login() {
   const users = useSelector(
     (state) => state.usersState.users
   )
+
+  const [eye, setEye] = useState("close")
 
   const {
     handleSubmit,
@@ -142,30 +147,57 @@ export default function Login() {
             </Link>
           </div>
 
-          <input
-            {...register('password',{
-              required: "Password is required",
-              minLength:{
-                value:6,
-                message: "password minimum 6 characters"
-              },
-              validate: {
-                isCorrect : (v,fs) => {
-                  // const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
-                  if(v === import.meta.env.VITE_PASSWORD || v === import.meta.env.VITE_COM_PASSWORD){
-                    return true
-                  }else{
-                    const isRegis = users.some((u) => u.email.toLowerCase() === fs.email?.toLowerCase() && u.password === v)
-                    return isRegis || "This email or password not registered"
+          <div
+            className={`veryCenter border-2 bg-gray-200 rounded-xl ${
+              errors.password ? "border-red-500" : "border-white"
+            } pr-3 sm:pr-4`}
+          >
+            <input
+              {...register('password', {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "password minimum 6 characters"
+                },
+                validate: {
+                  isCorrect: (v, fs) => {
+                    if (
+                      v === import.meta.env.VITE_PASSWORD ||
+                      v === import.meta.env.VITE_COM_PASSWORD
+                    ) {
+                      return true
+                    } else {
+                      const isRegis = users.some(
+                        (u) =>
+                          u.email.toLowerCase() === fs.email?.toLowerCase() &&
+                          u.password === v
+                      )
+
+                      return isRegis || "This email or password not registered"
+                    }
                   }
                 }
+              })}
+              type={eye === "close" ? "password" : "text"}
+              autoComplete="current-password"
+              className="w-full min-w-0 outline-none text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 font-normal bg-transparent"
+              placeholder="Input Here . . ."
+            />
+
+            <div
+              className="shrink-0 text-orangeFigma cursor-pointer"
+              onClick={() =>
+                eye === "close"
+                  ? setEye("open")
+                  : setEye("close")
               }
-            })}
-            type="password"
-            autoComplete="current-password"
-            className={`border-2 outline-none text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 ${errors.password? "border-red-500":"border-white"} bg-gray-200 rounded-xl`}
-            placeholder="Input Here . . ."
-          />
+            >
+              {eye === "close"
+                ? <FaEyeSlash size={22} className="sm:w-6 sm:h-6 md:w-7 md:h-7" />
+                : <FaEye size={22} className="sm:w-6 sm:h-6 md:w-7 md:h-7" />
+              }
+            </div>
+          </div>
         </label>
 
         <p className="text-base sm:text-xl h-6 font-medium text-red-400"
