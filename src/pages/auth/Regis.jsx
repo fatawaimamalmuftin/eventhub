@@ -1,9 +1,11 @@
 import { Link, useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
-// import UseGetItem from "../../Hooks/UseGetItem"
 import { toast } from "react-toastify"
 import { useDispatch, useSelector } from "react-redux"
 import { regis } from "../../Redux/slice/usersSlice"
+import { useState } from "react"
+import { FaEyeSlash } from "react-icons/fa6"
+import { FaEye } from "react-icons/fa"
 
 export default function Regis() {
   const dispatch = useDispatch()
@@ -12,8 +14,10 @@ export default function Regis() {
     (state) => state.usersState.users
   )
 
+  const [eyePassword, setEyePassword] = useState("close")
+  const [eyeConfirmPassword, setEyeConfirmPassword] = useState("close")
+
   const navigate = useNavigate()
-  // const dataLocal = UseGetItem("users","[]")
   
   const {
     handleSubmit,
@@ -32,8 +36,6 @@ export default function Regis() {
       profile: "",
       created_at: new Date().toISOString()
     }
-    // const setData = [...dataLocal,user]
-    // window.localStorage.setItem("users",JSON.stringify(setData))
 
     toast.success("successfully registered as a user", {
       autoClose: 1000
@@ -137,19 +139,35 @@ export default function Regis() {
         <label className="flex flex-col gap-2 font-semibold">
           Password
 
-          <input
-            {...register("password",{
-              required : "Password is required",
+          <div className={`veryCenter border-2 bg-gray-200 rounded-xl ${errors.password ? "border-red-500" : "border-white"} pr-4`}>
+            <input
+              {...register("password",{
+                required : "Password is required",
                 minLength: {
                   value: 6,
                   message: "password minimum 6 characters",
-              },
-            })}
-            type="password"
-            autoComplete="new-password"
-            className={`border-2 outline-none font-normal text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 ${errors.password? "border-red-500":"border-white"} bg-gray-200 rounded-xl`}
-            placeholder="At least 6 characters"
-          />
+                },
+              })}
+              type={eyePassword === "close" ? "password" : "text"}
+              autoComplete="new-password"
+              className="w-full outline-none font-normal text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 bg-transparent"
+              placeholder="At least 6 characters"
+            />
+
+            <div
+              className="text-orangeFigma cursor-pointer"
+              onClick={() =>
+                eyePassword === "close"
+                  ? setEyePassword("open")
+                  : setEyePassword("close")
+              }
+            >
+              {eyePassword === "close"
+                ? <FaEyeSlash size={30}/>
+                : <FaEye size={30}/>
+              }
+            </div>
+          </div>
         </label>
 
         <p className="text-base sm:text-xl h-6 font-medium text-red-400" 
@@ -159,18 +177,35 @@ export default function Regis() {
         <label className="flex flex-col gap-2 font-semibold">
           Confirm Password
 
-          <input
-            {...register("confirmPassword",{
-              required: "Confirm Password is required",
-              validate: {
-                matchPassword: (value, formValues) => value === formValues.password || "passwords are not the same",
+         <div className={`veryCenter border-2 bg-gray-200 rounded-xl ${errors.confirmPassword ? "border-red-500" : "border-white"} pr-4`}>
+            <input
+              {...register("confirmPassword",{
+                required: "Confirm Password is required",
+                validate: {
+                  matchPassword: (value, formValues) =>
+                    value === formValues.password || "passwords are not the same",
+                }
+              })}
+              type={eyeConfirmPassword === "close" ? "password" : "text"}
+              autoComplete="new-password"
+              className="w-full outline-none font-normal text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 bg-transparent"
+              placeholder="Re-enter your password"
+            />
+
+            <div
+              className="text-orangeFigma cursor-pointer"
+              onClick={() =>
+                eyeConfirmPassword === "close"
+                  ? setEyeConfirmPassword("open")
+                  : setEyeConfirmPassword("close")
               }
-            })}
-            type="password"
-            autoComplete="new-password"
-            className={`border-2 outline-none font-normal text-base sm:text-lg md:text-xl px-4 sm:px-5 py-3 sm:py-4 ${errors.confirmPassword? "border-red-500":"border-white"} bg-gray-200 rounded-xl`}
-            placeholder="Re-enter your password"
-          />
+            >
+              {eyeConfirmPassword === "close"
+                ? <FaEyeSlash size={30}/>
+                : <FaEye size={30}/>
+              }
+            </div>
+          </div>
         </label>
 
         <p className="text-base sm:text-xl h-6 font-medium text-red-400"
