@@ -3,7 +3,7 @@ import { logout } from '../Redux/slice/userSlice.js'
 import { Link } from "react-router"
 import { updateUsers } from '../Redux/slice/usersSlice.js'
 
-export default function ModalLogout({ show, admin = null, setAdmin = null, comunities = null, setComunities = null }) {
+export default function ModalLogout({ show, setShow, admin = null, setAdmin = null, comunities = null, setComunities = null }) {
 
     const userLogind = useSelector(
         (state) => state.userState.user
@@ -14,11 +14,7 @@ export default function ModalLogout({ show, admin = null, setAdmin = null, comun
     )
 
     const dispatch = useDispatch()
-
-    const profile = userLogind
-        ? userLogind.fullName[0].toUpperCase()
-        : ""
-
+    
     function handleLogout() {
 
         if (admin) {
@@ -47,7 +43,7 @@ export default function ModalLogout({ show, admin = null, setAdmin = null, comun
                     location: userLogind.location,
                     bio: userLogind.bio,
                     cart: userLogind.cart,
-                    update_at: new Date()
+                    update_at: new Date().toISOString()
                 }
             }
             return user
@@ -61,24 +57,22 @@ export default function ModalLogout({ show, admin = null, setAdmin = null, comun
 
     return (
         <main
-            className={` absolute top-15 right-15 max-w-84 overflow-hidden rounded-2xl border  border-black/10  bg-white shadow-xl ${!show && "hidden"}`}>
+            className={` absolute top-15 right-15 max-w-200 overflow-hidden rounded-2xl border  border-black/10  bg-white shadow-xl ${!show && "hidden"}`}>
             {userLogind && (
                 <div className="veryCenter px-4">
-                    <div
-                        type="button"
-                        className="w-10 h-10 bg-orangeFigma text-white rounded-full cursor-pointer outline-none overflow-hidden veryCenter text-2xl"
-                    >
-                        {userLogind?.profile ? (
-                            <img
-                                src={userLogind.profile}
-                                alt="Profile"
-                                className="w-full h-full object-cover"
-                            />
-                        ) : (
-                            profile
+                        {userLogind.profile === "" ? (
+                            <div className="w-10 h-10 bg-orangeFigma text-white rounded-full overflow-hidden veryCenter text-2xl">
+                                {userLogind.fullName[0].toUpperCase()}
+                            </div>
+                        ) : ( 
+                            <div className="w-10 h-10 rounded-full overflow-hidden">
+                                <img
+                                    src={userLogind.profile}
+                                    alt="Profile"
+                                    className="w-full h-full object-cover"
+                                    />
+                            </div>
                         )}
-                    </div>
-
                     <div className="px-4 py-5">
 
                         <div className="text-2xl font-semibold whitespace-nowrap">
@@ -101,7 +95,8 @@ export default function ModalLogout({ show, admin = null, setAdmin = null, comun
 
             {userLogind &&
             <Link to="/myprofile">
-                <div className="border-t border-gray-200 px-7 py-4 text-xl text-gray-700 hover:bg-gray-200 cursor-pointer whitespace-nowrap">
+                <div className="border-t border-gray-200 px-7 py-4 text-xl text-gray-700 hover:bg-gray-200 cursor-pointer whitespace-nowrap"
+                onClick={()=>setShow(false)}>
                     My Profile
                 </div>
             </Link>

@@ -87,9 +87,13 @@ export default function ModalEditProfile({showModal, setShowModal}) {
 
                             if(!file) return
 
-                            const image = URL.createObjectURL(file)
+                            const render = new FileReader()
 
-                            setProfilePreview(image)
+                            render.onloadend = () => {
+                                setProfilePreview(render.result)
+                            }
+
+                            render.readAsDataURL(file)
                         }}
                     />
 

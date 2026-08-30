@@ -27,9 +27,9 @@ export default function Regis() {
       id: users.length + 1, 
       ...data,
       cart: [],
-      bio: null,
-      location: null,
-      profile: null,
+      bio: "",
+      location: "",
+      profile: "",
       created_at: new Date().toISOString()
     }
     // const setData = [...dataLocal,user]
