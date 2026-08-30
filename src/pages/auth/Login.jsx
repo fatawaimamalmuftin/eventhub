@@ -1,21 +1,15 @@
 import { Link,useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
-// import { useContext } from "react"
-// import userLogindContex from "../../context/userLogind/userLogindContext"
 import { useDispatch, useSelector } from "react-redux"
 import { login } from "../../Redux/slice/userSlice.js"
-// import UseGetItem from '../../Hooks/UseGetItem.js'
 import { toast } from "react-toastify"
 
 export default function Login() {
-  // const user = useContext(userLogindContex)
   const dispatch = useDispatch()
 
   const users = useSelector(
     (state) => state.usersState.users
   )
-
-  // const dataLocal = UseGetItem("users","[]")
 
   const {
     handleSubmit,
