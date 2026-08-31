@@ -14,6 +14,7 @@ import ComunitiesDash from "./pages/guest/ComunitiesDash.jsx";
 import CreateEvent from "./pages/guest/CreateEvent.jsx";
 import MyProfile from "./pages/guest/MyProfile.jsx";
 import Notif from "./pages/guest/Notif.jsx";
+import AdminDashboard from "./pages/guest/AdminDashboard.jsx";
 
 export default function Router() {
   return (
@@ -29,6 +30,7 @@ export default function Router() {
         <Route path="createEvent" element={<CreateEvent/>}/>
         <Route path="myprofile" element={<MyProfile/>}/>
         <Route path="notif" element={<Notif/>}/>
+        <Route path="adminDash" element={<AdminDashboard/>}/>
       </Route>
 
       {/* guest */}

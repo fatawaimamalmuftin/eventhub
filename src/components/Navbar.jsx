@@ -211,14 +211,16 @@ export default function Navbar() {
 
                 {admin &&
                 <div className="veryCenter gap-2">
+                    <NavLink to="adminDash" className="hover:hover px-2 py-1 veryCenter gap-1">
+                        <FiShield
+                            className="w-5 h-5 cursor-pointer"
+                        />
 
-                    <FiShield
-                        className="w-5 h-5 cursor-pointer"
-                    />
+                        <div className="text-gray-400 text-xl pt-1 hover:text-orangeFigma">
+                            Admin
+                        </div>
+                    </NavLink>
 
-                    <div className="text-gray-400 text-xl pt-1">
-                        Admin
-                    </div>
 
                     <NavLink to="/notif">
                         <FiBell
