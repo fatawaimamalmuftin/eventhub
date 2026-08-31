@@ -7,20 +7,7 @@ import { editProfile, logout } from '../Redux/slice/userSlice.js'
 
 import moon from '../assets/moon.svg'
 
-import {
-    FiBell,
-    FiMenu,
-    FiX,
-    FiCompass,
-    FiUsers,
-    FiCalendar,
-    FiUser,
-    FiLogIn,
-    FiLogOut,
-    FiGrid,
-    FiShield,
-} from 'react-icons/fi'
-
+import {FiBell,FiMenu,FiX,FiCompass,FiUsers,FiCalendar,FiUser,FiLogIn,FiLogOut,FiGrid,FiShield,} from 'react-icons/fi'
 
 export default function Navbar() {
     const dispatch = useDispatch()
@@ -32,14 +19,13 @@ export default function Navbar() {
     const [admin, setAdmin] = useState(null)
     const [adminNav, setAdminNav] = useState(false)
     const [showAdmin, setShowAdmin] = useState(false)
-    
+
     const [comunities, setComunities] = useState(null)
     const [comNav, setComNav] = useState(false)
     const [showCom, setShowCom] = useState(false)
 
     const [show, setShow] = useState(false)
     const [showMenu, setShowMenu] = useState(false)
-
 
     useEffect(() => {
 
@@ -72,46 +58,59 @@ export default function Navbar() {
         ? ""
         : "/guest"
 
+
     function handleLogout() {
-    
-            if (admin) {
-    
-                setAdmin(false)
-                localStorage.removeItem("admin")
 
-                setComunities(false)
-                localStorage.removeItem("comunities")
-    
-                window.location.reload()
-    
-                return
-    
-            }
-    
-            const dataLocal = JSON.parse(localStorage.getItem("users") || "[]")
-    
-            const setData = dataLocal.map((user) => {
-    
-                if (user.id === userLogind.id) {
-    
-                    return {
-                        ...user,
-                        cart: userLogind.cart
-                    }
-                }
-                return user
-            })
-    
-            localStorage.setItem("users",JSON.stringify(setData))
-    
-            dispatch(logout())
+        if (admin) {
 
-            setShow(false)
+            setAdmin(false)
+            localStorage.removeItem("admin")
+
+            setComunities(false)
+            localStorage.removeItem("comunities")
+
+            window.location.reload()
+
+            return
+
         }
+
+
+        const dataLocal = JSON.parse(
+            localStorage.getItem("users") || "[]"
+        )
+
+
+        const setData = dataLocal.map((user) => {
+
+            if (user.id === userLogind.id) {
+
+                return {
+                    ...user,
+                    cart: userLogind.cart
+                }
+
+            }
+
+            return user
+        })
+
+
+        localStorage.setItem(
+            "users",
+            JSON.stringify(setData)
+        )
+
+
+        dispatch(logout())
+
+        setShow(false)
+    }
 
 
     return (
         <nav className="relative veryCenter gap-8 py-4 px-14 bg-whiteFigma shadow-xl top-0 z-2">
+
             <div className="veryCenter gap-2">
 
                 <div className="btnBordColor w-7 h-7">
@@ -124,11 +123,16 @@ export default function Navbar() {
 
             </div>
 
+
+            {/* DESKTOP NAVIGATION */}
+
             <div className="hidden md:flex veryCenter gap-4">
 
-                {(userLogind || adminNav || comNav) &&
+                {/* EXPLORE */}
+
                 <NavLink
-                    to={`${basePath}/explore`}
+                    to={basePath}
+                    end
                     className={({isActive}) =>
                         isActive
                             ? "hover py-2 px-4"
@@ -137,11 +141,12 @@ export default function Navbar() {
                 >
                     Explore
                 </NavLink>
-                }
 
+
+                {/* EVENT */}
 
                 <NavLink
-                    to="/guest"
+                    to={`${basePath}/event`}
                     end
                     className={({isActive}) =>
                         isActive
@@ -152,6 +157,8 @@ export default function Navbar() {
                     Event
                 </NavLink>
 
+
+                {/* COMMUNITIES */}
 
                 <NavLink
                     to={`${basePath}/comunities`}
@@ -164,6 +171,8 @@ export default function Navbar() {
                     Communities
                 </NavLink>
 
+
+                {/* MY EVENTS */}
 
                 {(userLogind || admin || comunities) &&
                 <NavLink
@@ -179,6 +188,7 @@ export default function Navbar() {
                 }
 
             </div>
+
 
             <div className="hidden md:flex veryCenter ml-auto gap-5">
 
@@ -215,18 +225,23 @@ export default function Navbar() {
                 </div>
                 }
 
+
                 {comunities &&
                 <>
                     <NavLink
-                    to={`${basePath}/comunitiesDash`}
-                    className={({isActive})=> isActive ? 
-                    "hover veryCenter py-2 px-4 gap-2 " : 
-                    "myBorder veryCenter gap-2 py-2 px-4 hover:hover"}>
+                        to={`${basePath}/comunitiesDash`}
+                        className={({isActive}) =>
+                            isActive
+                                ? "hover veryCenter py-2 px-4 gap-2 "
+                                : "myBorder veryCenter gap-2 py-2 px-4 hover:hover"
+                        }
+                    >
                         <FiGrid
                             className="w-5 h-5 cursor-pointer"
                         />
-                            Comunities
-                        </NavLink>
+
+                        Comunities
+                    </NavLink>
 
                     <FiBell
                         className="w-5 h-5 cursor-pointer ml-6"
@@ -241,14 +256,18 @@ export default function Navbar() {
                     className="w-5 h-5 cursor-pointer"
                 />
 
+
                 {userLogind && (
                     <div className="relative">
+
                         <button
                             type="button"
                             className="w-10 h-10 bg-orangeFigma text-white rounded-full cursor-pointer outline-none overflow-hidden veryCenter text-2xl"
                             onClick={() => setShow(!show)}
                         >
+
                             {userLogind?.profile ? (
+
                                 <img
                                     src={userLogind.profile}
                                     alt="Profile"
@@ -259,24 +278,34 @@ export default function Navbar() {
                                         }))
                                     }}
                                 />
+
                             ) : (
+
                                 profile
+
                             )}
+
                         </button>
 
                     </div>
                 )}
 
+
                 {!userLogind && !admin && !comunities && (
+
                     <button
                         type="button"
                         className="btnBordColor py-1 px-2 outline-none hover:hover"
                     >
+
                         <NavLink to="/auth/login">
                             Sign In
                         </NavLink>
+
                     </button>
+
                 )}
+
 
                 {admin && (
                     <div className="relative">
@@ -301,6 +330,7 @@ export default function Navbar() {
 
                     </div>
                 )}
+
 
                 {comunities && (
                     <div className="relative">
@@ -327,6 +357,9 @@ export default function Navbar() {
                 )}
 
             </div>
+
+
+            {/* MOBILE NAVIGATION */}
 
             <div className="md:hidden veryCenter ml-auto gap-5">
 
@@ -382,6 +415,7 @@ export default function Navbar() {
 
             </div>
 
+
             {showMenu &&
 
             <div className="md:hidden absolute top-full right-5 w-77.5 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-50">
@@ -427,6 +461,7 @@ export default function Navbar() {
 
                 }
 
+
                 {admin &&
 
                 <div className="flex items-center gap-4 px-6 py-5 border-b border-gray-200">
@@ -458,6 +493,7 @@ export default function Navbar() {
 
                 }
 
+
                 {!userLogind && !admin &&
 
                 <div className="px-6 py-5 text-gray-400 border-b border-gray-200">
@@ -466,10 +502,14 @@ export default function Navbar() {
 
                 }
 
+
+                {/* EXPLORE */}
+
                 {(userLogind || admin) &&
 
                 <NavLink
-                    to={`${basePath}/explore`}
+                    to={basePath}
+                    end
                     onClick={() => setShowMenu(false)}
                     className={({isActive}) =>
                         `flex items-center gap-4 px-6 py-4 text-lg ${
@@ -488,8 +528,11 @@ export default function Navbar() {
 
                 }
 
+
+                {/* EVENTS */}
+
                 <NavLink
-                    to="/guest"
+                    to={`${basePath}/event`}
                     end
                     onClick={() => setShowMenu(false)}
                     className={({isActive}) =>
@@ -506,6 +549,9 @@ export default function Navbar() {
                     Events
 
                 </NavLink>
+
+
+                {/* COMMUNITIES */}
 
                 <NavLink
                     to={`${basePath}/comunities`}
@@ -524,6 +570,9 @@ export default function Navbar() {
                     Communities
 
                 </NavLink>
+
+
+                {/* MY EVENTS */}
 
                 {userLogind &&
 
@@ -547,10 +596,13 @@ export default function Navbar() {
 
                 }
 
+
+                {/* MY PROFILE */}
+
                 {userLogind &&
 
                 <NavLink
-                    to={`myprofile`}
+                    to={`${basePath}/myprofile`}
                     onClick={() => setShowMenu(false)}
                     className={({isActive}) =>
                         `flex items-center gap-4 px-6 py-4 text-lg ${
@@ -568,6 +620,9 @@ export default function Navbar() {
                 </NavLink>
 
                 }
+
+
+                {/* ADMIN */}
 
                 {admin &&
 
@@ -591,6 +646,9 @@ export default function Navbar() {
 
                 }
 
+
+                {/* SIGN IN */}
+
                 {!userLogind && !admin &&
 
                 <NavLink
@@ -607,6 +665,9 @@ export default function Navbar() {
 
                 }
 
+
+                {/* SIGN OUT USER */}
+
                 {userLogind &&
 
                 <button
@@ -622,6 +683,9 @@ export default function Navbar() {
                 </button>
 
                 }
+
+
+                {/* SIGN OUT ADMIN */}
 
                 {admin &&
 
@@ -646,12 +710,14 @@ export default function Navbar() {
 
             }
 
+
             {show &&
             <ModalLogout
                 show={show}
                 setShow={setShow}
             />
             }
+
 
             {showAdmin &&
             <ModalLogout
@@ -661,6 +727,7 @@ export default function Navbar() {
                 setAdmin={setAdminNav}
             />
             }
+
 
             {showCom &&
             <ModalLogout

@@ -20,8 +20,8 @@ export default function Router() {
 
       {/* user */}
       <Route path="/" element={<UserLayout/>}>
-        <Route index element={<Event/>}/>
-        <Route path="explore" element={<Explore/>}/>  
+        <Route index element={<Explore/>}/>
+        <Route path="event" element={<Event/>}/>
         <Route path="comunities" element={<Comunities/>}/>  
         <Route path="myevents" element={<MyEvents/>}/>
         <Route path="comunitiesDash" element={<ComunitiesDash/>}/>
@@ -31,7 +31,8 @@ export default function Router() {
 
       {/* guest */}
       <Route path="/guest" element={<GuestLayout />}>
-        <Route index element={<Event />} />
+        <Route index element={<Explore />} />
+        <Route path="event" element={<Event/>}/>
         <Route path="comunities" element={<Comunities />} />
       </Route>
 
