@@ -194,9 +194,11 @@ export default function Navbar() {
 
                 {userLogind ?
 
-                <FiBell
-                    className="w-5 h-5 cursor-pointer"
-                />
+                <NavLink to="/notif">
+                    <FiBell
+                        className="w-5 h-5 cursor-pointer"
+                    />
+                </NavLink>
 
                 :
 
@@ -218,9 +220,11 @@ export default function Navbar() {
                         Admin
                     </div>
 
-                    <FiBell
-                        className="w-5 h-5 cursor-pointer ml-6"
-                    />
+                    <NavLink to="/notif">
+                        <FiBell
+                            className="w-5 h-5 cursor-pointer"
+                        />
+                    </NavLink>
 
                 </div>
                 }
@@ -243,9 +247,11 @@ export default function Navbar() {
                         Comunities
                     </NavLink>
 
-                    <FiBell
-                        className="w-5 h-5 cursor-pointer ml-6"
-                    />
+                    <NavLink to="/notif">
+                        <FiBell
+                            className="w-5 h-5 cursor-pointer"
+                        />
+                    </NavLink>
                 </>
                 }
 
@@ -367,9 +373,11 @@ export default function Navbar() {
 
                 <div className="relative">
 
-                    <FiBell
-                        className="w-6 h-6 text-gray-600"
-                    />
+                    <NavLink to="/notif">
+                        <FiBell
+                            className="w-5 h-5 cursor-pointer"
+                        />
+                    </NavLink>
 
                     <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-orangeFigma text-white text-xs veryCenter">
                         3
