@@ -174,7 +174,7 @@ export default function Navbar() {
 
                 {/* MY EVENTS */}
 
-                {(userLogind || admin || comunities) &&
+                {(userLogind) &&
                 <NavLink
                     to={`${basePath}/myevents`}
                     className={({isActive}) =>
