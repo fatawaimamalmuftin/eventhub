@@ -7,10 +7,17 @@ import selectedContext from "../../context/selected/selectedContext.js"
 import Events from "../../lib/dummyEvent"
 import Comunity from "../../lib/dummyComunity"
 import testimonials from '../../lib/dummyTestimonials.js'
+import { useSearchParams } from "react-router"
 
 export default function Explore() {
 
-    const [searchEvent,setSearchEvent] = useState("")
+    const [searchParam, setSearchParam] = useSearchParams()
+
+    const [searchEvent,setSearchEvent] = useState(
+        searchParam.get("search") || ""
+    )
+    const [categorie,setCategorie] = useState("")
+
     const [,setShow] = useState(false)
     const [showDetail,setShowDetail] = useState(false)
 
@@ -26,12 +33,17 @@ export default function Explore() {
 
     const filterEvent = Events.filter((e)=>{
         const searchValue = searchEvent.toLowerCase()
+        const categorieValue = categorie.toLowerCase()
 
-        const baseOnTitle = e.title.toLowerCase().includes(searchValue)
-        const baseOnLocation = e.location.toLowerCase().includes(searchValue)
-        const baseOnCate = e.categories.some((c)=>c.toLowerCase().includes(searchValue))
+        const baseOnSearch = 
+        e.title.toLowerCase().includes(searchEvent) ||
+        e.location.toLowerCase().includes(searchValue) ||
+        e.categories.some((e) => e.toLowerCase() === searchValue.toLowerCase())
 
-        return baseOnTitle || baseOnLocation || baseOnCate
+        const baseOnCate = categorieValue === "" ||
+        e.categories.some((c)=> c.toLowerCase() === categorieValue)
+        
+        return baseOnSearch && baseOnCate
     })
 
     const recommended = filterEvent.slice(0,3)
@@ -74,7 +86,14 @@ export default function Explore() {
                                 type="text"
                                 placeholder="Search events, topics, or locations..."
                                 value={searchEvent}
-                                onChange={(e)=>setSearchEvent(e.target.value)}
+                                onChange={(e)=>{
+                                    setSearchEvent(e.target.value),
+
+                                    setSearchParam((param)=>{
+                                        param.set("search", e.target.value)
+                                        return param
+                                    })
+                                }}
                                 className="w-full outline-none text-sm text-black"
                             />
                         </div>
@@ -93,7 +112,13 @@ export default function Explore() {
                                 key={i}
                                 type="button"
                                 className="text-xs text-gray-500 hover:text-orangeFigma cursor-pointer"
-                                onClick={()=>setSearchEvent(category)}
+                                onClick={()=>{
+                                    setCategorie(category),
+                                    setSearchParam((param)=>{
+                                        param.set("categories", category)
+                                        return param 
+                                    })
+                                }}
                             >
                                 {category}
                             </button>
