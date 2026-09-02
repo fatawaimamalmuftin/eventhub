@@ -50,7 +50,7 @@ RUN echo "AllowUsers fatawa" >> /etc/ssh/sshd_config
 # generate ssh host key
 RUN ssh-keygen -A
 
-# port react
+# port nginx
 EXPOSE 80
 # port ssh
 EXPOSE 22
