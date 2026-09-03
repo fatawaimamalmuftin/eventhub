@@ -30,11 +30,8 @@ const eventSlice = createSlice({
     name: "event",
     initialState,
     reducers: {
-        setEventForm: (state, {payload}) => {
-            state.eventForm = {
-                ...state.eventForm,
-                ...payload
-            }
+        addEvent: (state, { payload }) => {
+            state.events.push(payload)
         }
     },
     extraReducers: (builder)=>{
@@ -59,5 +56,5 @@ const eventSlice = createSlice({
     }
 })
 
-export const { setEventForm } = eventSlice.actions
+export const { addEvent } = eventSlice.actions
 export default eventSlice.reducer
