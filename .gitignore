@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+
+id_rsa.pub
+id_rsa
