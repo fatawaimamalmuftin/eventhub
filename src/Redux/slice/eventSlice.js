@@ -3,6 +3,7 @@ import Events from '../../lib/dummyEvent.js'
 
 const initialState = {
     events:[],
+    eventForm: {},
     isPending: false,
     isFulfilled: false,
     isRejected: false,
@@ -28,6 +29,14 @@ export const getEventThunk = createAsyncThunk(
 const eventSlice = createSlice({
     name: "event",
     initialState,
+    reducers: {
+        setEventForm: (state, {payload}) => {
+            state.eventForm = {
+                ...state.eventForm,
+                ...payload
+            }
+        }
+    },
     extraReducers: (builder)=>{
         return builder.addAsyncThunk(getEventThunk,{
             pending: (state) => {
