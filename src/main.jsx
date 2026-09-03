@@ -8,7 +8,7 @@ import SelectedProvider from './context/selected/SelectedProvider.jsx'
 import { Provider } from 'react-redux'
 import store, { persist } from './Redux/store.js'
 import { PersistGate } from 'redux-persist/integration/react'
-
+import CreateEventProvider from './context/createEvent/CreateEventProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
 
@@ -18,15 +18,20 @@ createRoot(document.getElementById('root')).render(
 
       <PersistGate loading={null} persistor={persist}>
 
-        <SelectedProvider>
+        <CreateEventProvider>
 
-          <BrowserRouter>
+          <SelectedProvider>
 
-            <Router />
+            <BrowserRouter>
 
-          </BrowserRouter>
+              <Router />
 
-        </SelectedProvider>
+            </BrowserRouter>
+
+          </SelectedProvider>
+
+        </CreateEventProvider>
+
 
       </PersistGate>
 
