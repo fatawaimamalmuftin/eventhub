@@ -1,4 +1,4 @@
-export default function FormCreateStep2({ page2, register }) {
+export default function FormCreateStep2({ page2, register, errors }) {
   return (
     page2 && (
       <div className="w-full px-25 py-8">
@@ -19,9 +19,17 @@ export default function FormCreateStep2({ page2, register }) {
 
             <input
               type="date"
-              {...register("eventDate")}
+              {...register("eventDate", {
+                required: "Event date is required"
+              })}
               className="w-full px-3 py-3 border border-gray-200 rounded-lg outline-none focus:border-orangeFigma"
             />
+
+            {errors.eventDate && (
+              <p className="mt-1 text-sm text-red-500">
+                {errors.eventDate.message}
+              </p>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-4">
@@ -32,9 +40,17 @@ export default function FormCreateStep2({ page2, register }) {
 
               <input
                 type="time"
-                {...register("startTime")}
+                {...register("startTime", {
+                  required: "Start time is required"
+                })}
                 className="w-full px-3 py-3 border border-gray-200 rounded-lg outline-none focus:border-orangeFigma"
               />
+
+              {errors.startTime && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.startTime.message}
+                </p>
+              )}
             </div>
 
             <div>
@@ -44,9 +60,17 @@ export default function FormCreateStep2({ page2, register }) {
 
               <input
                 type="time"
-                {...register("endTime")}
+                {...register("endTime", {
+                  required: "End time is required"
+                })}
                 className="w-full px-3 py-3 border border-gray-200 rounded-lg outline-none focus:border-orangeFigma"
               />
+
+              {errors.endTime && (
+                <p className="mt-1 text-sm text-red-500">
+                  {errors.endTime.message}
+                </p>
+              )}
             </div>
           </div>
 
@@ -60,7 +84,9 @@ export default function FormCreateStep2({ page2, register }) {
                 <input
                   type="radio"
                   value="in_person"
-                  {...register("eventFormat")}
+                  {...register("eventFormat", {
+                    required: "Event format is required"
+                  })}
                   className="hidden peer"
                 />
 
@@ -73,7 +99,9 @@ export default function FormCreateStep2({ page2, register }) {
                 <input
                   type="radio"
                   value="online"
-                  {...register("eventFormat")}
+                  {...register("eventFormat", {
+                    required: "Event format is required"
+                  })}
                   className="hidden peer"
                 />
 
@@ -82,6 +110,12 @@ export default function FormCreateStep2({ page2, register }) {
                 </div>
               </label>
             </div>
+
+            {errors.eventFormat && (
+              <p className="mt-1 text-sm text-red-500">
+                {errors.eventFormat.message}
+              </p>
+            )}
           </div>
 
           <div>
@@ -92,9 +126,17 @@ export default function FormCreateStep2({ page2, register }) {
             <input
               type="text"
               placeholder="Bandung, West Java"
-              {...register("location")}
+              {...register("location", {
+                required: "Location is required"
+              })}
               className="w-full px-3 py-3 border border-gray-200 rounded-lg outline-none placeholder:text-gray-400 focus:border-orangeFigma"
             />
+
+            {errors.location && (
+              <p className="mt-1 text-sm text-red-500">
+                {errors.location.message}
+              </p>
+            )}
           </div>
 
           <div>
@@ -105,9 +147,17 @@ export default function FormCreateStep2({ page2, register }) {
             <input
               type="number"
               placeholder="100"
-              {...register("capacity")}
+              {...register("capacity", {
+                required: "Capacity is required"
+              })}
               className="w-full px-3 py-3 border border-gray-200 rounded-lg outline-none placeholder:text-gray-400 focus:border-orangeFigma"
             />
+
+            {errors.capacity && (
+              <p className="mt-1 text-sm text-red-500">
+                {errors.capacity.message}
+              </p>
+            )}
           </div>
         </div>
       </div>
