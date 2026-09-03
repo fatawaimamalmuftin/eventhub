@@ -23,8 +23,10 @@ export default function Event() {
     )
 
     useEffect(()=>{
-        dispatch(getEventThunk())     
-    },[dispatch])
+        if (Events.length === 0) {
+            dispatch(getEventThunk())
+        }
+    },[dispatch, Events.length])
 
     const [isShow,setIsShow] = useState(false)
     const [searchEvent,setSearchEvent] = useState("")
@@ -57,19 +59,29 @@ export default function Event() {
     const filterEvent = Events.filter((e) => {
         const searchValue = searchEvent.toLowerCase()
 
-        const matchSearch = e.title
+        const title = e.title || e.eventTitle || ""
+
+        const categories = Array.isArray(e.categories)
+            ? e.categories
+            : Array.isArray(e.category)
+            ? e.category
+            : e.category
+            ? [e.category]
+            : []
+
+        const matchSearch = title
             .toLowerCase()
             .includes(searchValue)
 
         const matchCategory =
             category === "" ||
-            e.categories.some(
+            categories.some(
                 (item) => item.toLowerCase() === category.toLowerCase()
             )
 
         const matchLocation =
             locations === "" ||
-            e.location.toLowerCase() === locations.toLowerCase()
+            (e.location || "").toLowerCase() === locations.toLowerCase()
 
         return matchSearch && matchCategory && matchLocation
     })
