@@ -59,4 +59,5 @@ const eventSlice = createSlice({
     }
 })
 
+export const { setEventForm } = eventSlice.actions
 export default eventSlice.reducer
