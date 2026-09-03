@@ -13,7 +13,7 @@ import persistCombineReducers from "redux-persist/es/persistCombineReducers.js";
 
 
 const persistUserConfig = {
-
+    // entar ubah nama dari user ke active
     key: "user",
 
     storage
