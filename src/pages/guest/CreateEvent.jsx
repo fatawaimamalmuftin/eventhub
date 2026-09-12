@@ -87,7 +87,7 @@ export default function CreateEvent() {
                 ...eventData,
                 eventTitle: data.eventTitle,
                 description: data.description,
-                category: data.category,
+                category: [data.category],
                 community: data.community,
                 coverImage: coverImage
             })
