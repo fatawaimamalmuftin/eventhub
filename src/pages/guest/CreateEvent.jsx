@@ -15,7 +15,7 @@ export default function CreateEvent() {
 
     const dispatch = useDispatch()
 
-    const users = useSelector((state) => state.usersState.users)
+    const events = useSelector((state)=> state.eventState.events)
 
     const {
         handleSubmit,
@@ -131,7 +131,7 @@ export default function CreateEvent() {
         if(page3){
             const newEvent = {
                 ...eventData,
-                id: users.length + 1
+                id: events.length + 1
             }
 
             dispatch(addEvent(newEvent))
