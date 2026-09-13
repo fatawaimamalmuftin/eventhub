@@ -6,6 +6,8 @@ import CardEvent from '../../components/CardEvent.jsx'
 import { CiCalendar } from "react-icons/ci";
 import ModalEditProfile from "../../components/ModalEditProfile.jsx";
 import { editProfile } from "../../Redux/slice/userSlice.js";
+import MchangePass from "../../components/MchangePass.jsx";
+import { ToastContainer } from "react-toastify";
 
 export default function MyProfile() {
     const dispatch = useDispatch()
@@ -16,9 +18,11 @@ export default function MyProfile() {
 
     const [show, setShow] = useState("events")
     const [showModal, setShowModal] = useState(false)
+    const [cmodal, setCmodal] = useState(false)
 
   return (
     <>
+    <MchangePass Cmodal={cmodal} setCmodal={setCmodal}/>
         <ModalEditProfile showModal={showModal} setShowModal={setShowModal}/>
         <main className="bg-white px-3 sm:px-8 md:px-20 lg:px-50 pt-5 sm:pt-8 lg:pt-10 border-b-2 border-gray-200 mb-6 lg:mb-10">
 
@@ -64,6 +68,12 @@ export default function MyProfile() {
                     onClick={()=>setShowModal(true)}>
                         <IoPencilOutline />
                         Edit Profile
+                    </span>
+
+                    <span className="hover:hover inline-flex items-center gap-2 myBorder font-normal text-xs sm:text-sm px-2 py-1 mt-1 md:absolute md:right-0 md:top-10"
+                    onClick={()=>setCmodal(true)}>
+                        <IoPencilOutline />
+                        Change Password
                     </span>
 
                     <div className="flex flex-wrap items-center gap-3 text-gray-500 text-xs sm:text-base md:text-xl mt-2">
@@ -210,6 +220,7 @@ export default function MyProfile() {
             </div>
         }
 
+        <ToastContainer position="top-center"/>
     </>
   )
 }
