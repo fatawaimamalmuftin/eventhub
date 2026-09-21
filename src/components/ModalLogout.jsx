@@ -87,11 +87,11 @@ export default function ModalLogout({ show, setShow, admin = null, setAdmin = nu
                 </div>
             )}
 
-            {admin && 
+            {/* {admin && 
                 <div className="border-t border-gray-200 px-7 py-4 text-xl text-gray-700 hover:bg-gray-200 cursor-pointer whitespace-nowrap">
                     Admin Dashboard
                 </div>
-            }
+            } */}
 
             {userLogind &&
             <Link to="/myprofile">
