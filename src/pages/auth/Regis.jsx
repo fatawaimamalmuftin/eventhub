@@ -2,22 +2,22 @@ import { Link, useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { useDispatch, useSelector } from "react-redux"
-import { RegisThunk } from "../../Redux/slice/usersSlice"
-import { useState } from "react"
+import { RegisThunk, resetErrorAndMassage } from "../../Redux/slice/usersSlice"
+import { useEffect, useState } from "react"
 import { FaEyeSlash } from "react-icons/fa6"
 import { FaEye } from "react-icons/fa"
 
 export default function Regis() {
   const dispatch = useDispatch()
 
-  const users = useSelector(
-    (state) => state.usersState.users
+  const navigate = useNavigate()
+
+  const usersState = useSelector(
+      (state) => state.usersState
   )
 
   const [eyePassword, setEyePassword] = useState("close")
   const [eyeConfirmPassword, setEyeConfirmPassword] = useState("close")
-
-  const navigate = useNavigate()
   
   const {
     handleSubmit,
@@ -26,26 +26,29 @@ export default function Regis() {
     reset
   } = useForm()
 
+  useEffect(() => {
+      if (usersState.message) {
+          toast.success(usersState.message, {autoClose: 1000,onClose: () => {
+            reset()
+            dispatch(resetErrorAndMassage())
+            navigate("/auth/login", {replace: true})
+          }})
+        }
+      }, [usersState.message, navigate, reset, dispatch])
+      
+  useEffect(()=>{
+    if (usersState.error) {
+      toast.error(usersState.error, {autoClose: 1000})
+      dispatch(resetErrorAndMassage())
+    }
+  },[usersState.error,dispatch])
+  
   const onSubmit = async (data) => {
       dispatch(RegisThunk({
         fullname: data.fullName,
         email: data.email,
         password: data.password
       }))
-
-      toast.success("registration successful", {
-        autoClose: 1000
-      })
-      
-      reset()
-
-      setTimeout(() => {
-        navigate("/auth/login", {replace: true})
-      }, 1500);
-      
-      // toast.error(err, {
-      //   autoClose: 1000
-      // })
   }
 
   return (
@@ -120,7 +123,7 @@ export default function Regis() {
               required : "Email is required",
               validate: (value) => {
                 // const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
-                const isRegisted = users.some((u)=> u.email.toLowerCase() === value.toLowerCase())
+                const isRegisted = usersState.users.some((u)=> u.email.toLowerCase() === value.toLowerCase())
                 return !isRegisted || "Email is registered"
               }
             })}

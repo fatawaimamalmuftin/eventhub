@@ -9,7 +9,6 @@ import {
     persistStore,
     persistReducer
 } from "redux-persist";
-import persistCombineReducers from "redux-persist/es/persistCombineReducers.js";
 
 
 const persistUserConfig = {
@@ -21,22 +20,14 @@ const persistUserConfig = {
 }
 
 const persistUsersConfig = {
-
     key: "users",
-
-    storage
-}
-
-const EventHubManajementPersist = {
-
-    key: "EventHubManajement",
-
-    storage
+    storage,
+    whitelist: ["users"] 
 }
 
 const store = configureStore({
 
-    reducer: persistCombineReducers(EventHubManajementPersist,{
+    reducer: {
 
         userState: persistReducer(
             persistUserConfig,
@@ -49,7 +40,7 @@ const store = configureStore({
         ),
 
         eventState: eventsReducer
-    }),
+    },
 
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
