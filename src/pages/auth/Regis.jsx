@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { useDispatch, useSelector } from "react-redux"
-import { regis } from "../../Redux/slice/usersSlice"
+import { SetUserThunk } from "../../Redux/slice/usersSlice"
 import { useState } from "react"
 import { FaEyeSlash } from "react-icons/fa6"
 import { FaEye } from "react-icons/fa"
@@ -26,27 +26,26 @@ export default function Regis() {
     reset
   } = useForm()
 
-  const onSubmit = (data) => {
-    const user = {
-      id: users.length + 1, 
-      ...data,
-      cart: [],
-      bio: "",
-      location: "",
-      profile: "",
-      created_at: new Date().toISOString()
-    }
+  const onSubmit = async (data) => {
+      dispatch(SetUserThunk({
+        fullname: data.fullName,
+        email: data.email,
+        password: data.password
+      }))
 
-    toast.success("successfully registered as a user", {
-      autoClose: 1000
-    })
-    
-    reset()
+      toast.success("registration successful", {
+        autoClose: 1000
+      })
+      
+      reset()
 
-    setTimeout(()=>{
-      dispatch(regis(user))
-      navigate("/auth/login", {replace:true})
-    },1500)
+      setTimeout(() => {
+        navigate("/auth/login", {replace: true})
+      }, 1500);
+      
+      // toast.error(err, {
+      //   autoClose: 1000
+      // })
   }
 
   return (

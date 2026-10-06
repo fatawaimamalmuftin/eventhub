@@ -1,10 +1,36 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
 
     users: []
 
 }
+
+export const SetUserThunk = createAsyncThunk(
+    "set_user",
+    async(data, {rejectWithValue}) => {
+        try {
+            const res = await fetch("http://localhost:5678/auth/regis",{
+                method: "POST",
+                headers: {
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+
+            const result = await res.json()
+
+            if (!res.Status) {
+                return rejectWithValue(res.Message)
+            }
+
+            return result
+
+        } catch (err) {
+            return rejectWithValue(err instanceof Error ? err.Message : err)
+        }
+    }
+)
 
 const usersSlice = createSlice({
 
