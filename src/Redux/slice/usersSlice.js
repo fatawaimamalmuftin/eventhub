@@ -6,7 +6,7 @@ const initialState = {
 
 }
 
-export const SetUserThunk = createAsyncThunk(
+export const RegisThunk = createAsyncThunk(
     "set_user",
     async(data, {rejectWithValue}) => {
         try {

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
 import { toast } from "react-toastify"
 import { useDispatch, useSelector } from "react-redux"
-import { SetUserThunk } from "../../Redux/slice/usersSlice"
+import { RegisThunk } from "../../Redux/slice/usersSlice"
 import { useState } from "react"
 import { FaEyeSlash } from "react-icons/fa6"
 import { FaEye } from "react-icons/fa"
@@ -27,7 +27,7 @@ export default function Regis() {
   } = useForm()
 
   const onSubmit = async (data) => {
-      dispatch(SetUserThunk({
+      dispatch(RegisThunk({
         fullname: data.fullName,
         email: data.email,
         password: data.password
