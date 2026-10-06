@@ -1,17 +1,17 @@
 import { Link,useNavigate } from "react-router"
 import { useForm } from "react-hook-form"
 import { useDispatch, useSelector } from "react-redux"
-import { login } from "../../Redux/slice/userSlice.js"
 import { toast } from "react-toastify"
 import { FaEyeSlash } from "react-icons/fa6"
 import { FaEye } from "react-icons/fa"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { LoginThunk, resetErrorAndMassage } from "../../Redux/slice/usersSlice.js"
 
 export default function Login() {
   const dispatch = useDispatch()
 
-  const users = useSelector(
-    (state) => state.usersState.users
+  const usersState = useSelector(
+    (state) => state.usersState
   )
 
   const [eye, setEye] = useState("close")
@@ -20,10 +20,33 @@ export default function Login() {
     handleSubmit,
     register,
     formState:{errors},
-    reset
+    reset,
+    setError
   } = useForm()
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (usersState.message) {
+      toast.success(usersState.message, {autoClose: 1000,onClose: () => {
+        reset()
+        dispatch(resetErrorAndMassage())
+        navigate("/", {replace: true})
+      }})
+    }
+  }, [usersState.message, navigate, reset, dispatch])
+        
+  useEffect(()=>{
+    if (usersState.error) {
+      toast.error(usersState.error, {autoClose: 1000})
+
+      setError("email", {type:"server", message: usersState.error})
+
+      setError("password", {type:"server", message: usersState.error})
+
+      dispatch(resetErrorAndMassage())
+    }
+  },[usersState.error,dispatch,setError])
 
   const onSubmit = (data) => {
     if(data.email === import.meta.env.VITE_USERNAME && data.password === import.meta.env.VITE_PASSWORD){
@@ -45,20 +68,27 @@ export default function Login() {
       navigate('/')
       return
     }
-    
-    const isLogind = users.find((e)=> e.email === data.email)
 
-    toast.success("login successful", {
-      autoClose: 1000
-    })
+    dispatch(LoginThunk({
+      email: data.email,
+      password: data.password
+    }))
     
-    reset()
+    // const isLogind = usersState.users.find((e)=> e.email === data.email)
+
+    // toast.success("login successful", {
+    //   autoClose: 1000
+    // })
     
-    setTimeout(()=>{
-      dispatch(login(isLogind))
-      navigate('/', {replace:true})
-    },1500)
+    // reset()
+    
+    // setTimeout(()=>{
+    //   dispatch(login(isLogind))
+    //   navigate('/', {replace:true})
+    // },1500)
   }
+
+  console.log(usersState.token)
 
   return (
     <main className="flex flex-col gap-5 py-8 px-5 sm:py-10 sm:px-10 md:px-16 lg:px-20 xl:px-30">
@@ -115,11 +145,12 @@ export default function Login() {
                     return true
                   } else if (!(v.includes("@"))) {
                     return "there must be an @ character"
-                  } else {
-                    // const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
-                    const isRegis = users.some((u) => u.email.toLowerCase() === v.toLowerCase())
-                    return isRegis || "This email not registered"
-                  }
+                  } 
+                  // else {
+                  //   // const dataLocal = JSON.parse(localStorage.getItem("users")||"[]")
+                  //   const isRegis = usersState.users.some((u) => u.email.toLowerCase() === v.toLowerCase())
+                  //   return isRegis || "This email not registered"
+                  // }
                 }
               }
             })}
@@ -160,21 +191,22 @@ export default function Login() {
                   message: "password minimum 6 characters"
                 },
                 validate: {
-                  isCorrect: (v, fs) => {
+                  isCorrect: (v) => {
                     if (
                       v === import.meta.env.VITE_PASSWORD ||
                       v === import.meta.env.VITE_COM_PASSWORD
                     ) {
                       return true
-                    } else {
-                      const isRegis = users.some(
-                        (u) =>
-                          u.email.toLowerCase() === fs.email?.toLowerCase() &&
-                          u.password === v
-                      )
+                    } 
+                    // else {
+                    //   const isRegis = usersState.users.some(
+                    //     (u) =>
+                    //       u.email.toLowerCase() === fs.email?.toLowerCase() &&
+                    //       u.password === v
+                    //   )
 
-                      return isRegis || "This email or password not registered"
-                    }
+                    //   return isRegis || "This email or password not registered"
+                    // }
                   }
                 }
               })}

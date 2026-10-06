@@ -22,7 +22,7 @@ const persistUserConfig = {
 const persistUsersConfig = {
     key: "users",
     storage,
-    whitelist: ["users"] 
+    whitelist: ["users","token", "userLogind"] 
 }
 
 const store = configureStore({

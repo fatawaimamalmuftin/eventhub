@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     users: [],
+    token: "",
 
     isPending: false,
     isFulfilled: false,
@@ -118,6 +119,7 @@ const usersSlice = createSlice({
                     state.isFulfilled = true
                     state.isRejected = false
                     state.message = payload.Message
+                    state.token = `Bearer ${payload.Data}`
                 },
 
                 rejected: (state, {payload}) => {
