@@ -1,8 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
-// import { logout } from '../Redux/slice/userSlice.js'
 import { Link } from "react-router"
 import { LogoutThunk, logoutUser } from "../Redux/slice/usersSlice.js"
-// import { updateUsers } from '../Redux/slice/usersSlice.js'
 
 export default function ModalLogout({ show, setShow, admin = null, setAdmin = null, comunities = null, setComunities = null }) {
 
@@ -76,12 +74,12 @@ export default function ModalLogout({ show, setShow, admin = null, setAdmin = nu
             </Link>
             }
 
-
             <button
                 className="w-full border-t border-gray-200 px-7 py-5 text-left text-xl text-red-500 hover:bg-red-300 hover:text-white cursor-pointer"
                 onClick={() => {
                     dispatch(LogoutThunk(userLogind.token))
                     dispatch(logoutUser())
+                    handleLogout()
                 }}
             >
                 Sign Out
