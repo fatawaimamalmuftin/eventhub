@@ -1,18 +1,18 @@
 import { IoClose } from "react-icons/io5";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { editProfile } from "../Redux/slice/userSlice";
+import { useSelector } from "react-redux";
+// import { editProfile } from "../Redux/slice/userSlice";
 import { useState } from "react";
 
 export default function ModalEditProfile({showModal, setShowModal}) {
 
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     const userLogind = useSelector(
-        (state) => state.userState.user
+        (state) => state.usersState.userLogind
     )
 
-    const [profilePreview, setProfilePreview] = useState(userLogind?.profile)
+    const [profilePreview, setProfilePreview] = useState(() => userLogind?.profile)
 
     const {
         register,
@@ -21,19 +21,19 @@ export default function ModalEditProfile({showModal, setShowModal}) {
         reset
     } = useForm({
         defaultValues: {
-            fullName: userLogind.fullName,
+            fullName: userLogind.full_name,
             location: userLogind?.location,
             bio: userLogind?.bio
         }
     })
 
-    const onSubmit = (data) => {
-        dispatch(editProfile({
-            fullName: data.fullName,
-            location: data.location,
-            bio: data.bio,
-            profile: profilePreview
-        }))
+    const onSubmit = () => {
+        // dispatch(editProfile({
+        //     fullName: data.fullName,
+        //     location: data.location,
+        //     bio: data.bio,
+        //     profile: profilePreview
+        // }))
         reset()
         setShowModal(false)
     }
@@ -56,7 +56,7 @@ export default function ModalEditProfile({showModal, setShowModal}) {
 
                     {profilePreview ? (
                         <img
-                            src={profilePreview}
+                            src={"http://localhost:5678"+userLogind.profile}
                             alt="Profile"
                             className="w-full h-full object-cover"
                             // onError={() => {

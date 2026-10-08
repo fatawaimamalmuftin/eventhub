@@ -2,18 +2,18 @@ import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router'
 import { useSelector } from 'react-redux'
 import ModalLogout from './ModalLogout'
-import { useDispatch } from 'react-redux'
-import { editProfile, logout } from '../Redux/slice/userSlice.js'
+// import { useDispatch } from 'react-redux'
+// import { editProfile, logout } from '../Redux/slice/userSlice.js'
 
 import moon from '../assets/moon.svg'
 
 import {FiBell,FiMenu,FiX,FiCompass,FiUsers,FiCalendar,FiUser,FiLogIn,FiLogOut,FiGrid,FiShield,} from 'react-icons/fi'
 
 export default function Navbar() {
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     const userLogind = useSelector(
-        (state) => state.userState.user
+        (state) => state.usersState.userLogind
     )
 
     const [admin, setAdmin] = useState(null)
@@ -48,16 +48,9 @@ export default function Navbar() {
 
     }, [])
 
+    const profile = userLogind?.full_name ? userLogind.full_name[0].toUpperCase() : ""
 
-    const profile = userLogind
-        ? userLogind.fullName[0].toUpperCase()
-        : ""
-
-
-    const basePath = userLogind || admin || comunities
-        ? ""
-        : "/guest"
-
+    const basePath = userLogind || admin || comunities ? "" : "/guest"
 
     function handleLogout() {
 
@@ -95,14 +88,9 @@ export default function Navbar() {
             return user
         })
 
+        localStorage.setItem("users",JSON.stringify(setData))
 
-        localStorage.setItem(
-            "users",
-            JSON.stringify(setData)
-        )
-
-
-        dispatch(logout())
+        // dispatch(logout())
 
         setShow(false)
     }
@@ -275,16 +263,15 @@ export default function Navbar() {
                         >
 
                             {userLogind?.profile ? (
-
                                 <img
-                                    src={userLogind.profile}
+                                    src={"http://localhost:5678" + userLogind?.profile}
                                     alt="Profile"
                                     className="w-full h-full object-cover"
-                                    onError={() => {
-                                        dispatch(editProfile({
-                                            profile: null
-                                        }))
-                                    }}
+                                    // onError={() => {
+                                    //     dispatch(editProfile({
+                                    //         profile: null
+                                    //     }))
+                                    // }}
                                 />
 
                             ) : (
@@ -458,7 +445,7 @@ export default function Navbar() {
                     <div className="min-w-0">
 
                         <p className="font-semibold text-lg truncate">
-                            {userLogind.fullName}
+                            {userLogind.full_name}
                         </p>
 
                         <p className="text-gray-400 truncate">

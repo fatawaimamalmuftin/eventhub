@@ -88,7 +88,7 @@ export default function Login() {
     // },1500)
   }
 
-  console.log(usersState.token)
+  // console.log(usersState.token)
 
   return (
     <main className="flex flex-col gap-5 py-8 px-5 sm:py-10 sm:px-10 md:px-16 lg:px-20 xl:px-30">

@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
     users: [],
     token: "",
+    userLogind: [],
 
     isPending: false,
     isFulfilled: false,
@@ -10,6 +11,30 @@ const initialState = {
     error: "",
     message: "",
 }
+
+export const LogoutThunk = createAsyncThunk(
+    "LogoutThunk",
+    async(token, {rejectWithValue}) => {
+        try {
+            const res = await fetch("http://localhost:5678/auth/logout", {
+                method: "POST",
+                headers: {
+                    "Authorization" : "Bearer " + token        
+                }
+            })
+
+            const result = await res.json()
+
+            if (!result.Status) {
+                return rejectWithValue(result.Message)
+            }
+
+            return result
+        } catch (err) {
+            return rejectWithValue(err instanceof Error ? err.message : err)            
+        }
+    }
+)
 
 export const RegisThunk = createAsyncThunk(
     "RegisAtThunk",
@@ -70,23 +95,8 @@ const usersSlice = createSlice({
     initialState,
 
     reducers: {
-        
-        regis: (prevState, {payload}) => {
-
-            return {
-                ...prevState,
-
-                users: [
-                    ...prevState.users,
-                    payload
-                ]
-
-            }
-
-        },
-        
-        updateUsers: (prevState, {payload}) => {
-            prevState.users = payload
+        logoutUser: (prevState) => {
+            prevState.userLogind = []
         },
 
         changePassword: (prevState, {payload}) => {
@@ -119,7 +129,8 @@ const usersSlice = createSlice({
                     state.isFulfilled = true
                     state.isRejected = false
                     state.message = payload.Message
-                    state.token = `Bearer ${payload.Data}`
+                    state.token = `Bearer ${payload.Token}`
+                    state.userLogind = payload.Data
                 },
 
                 rejected: (state, {payload}) => {
@@ -155,12 +166,33 @@ const usersSlice = createSlice({
                     state.message = null
                 }
             })
+
+            .addAsyncThunk(LogoutThunk, {
+                pending: (state) => {
+                    state.isPending = true
+                    state.isFulfilled = false
+                    state.isRejected = false
+                    state.error = null
+                    state.message = null
+                },
+                fulfilled: (state, {payload}) => {
+                    state.isPending = false
+                    state.isFulfilled = true
+                    state.isRejected = false
+                    state.message = payload.Message
+                },
+                rejected: (state, {payload}) => {
+                    state.isPending = false
+                    state.isFulfilled = false
+                    state.isRejected = true
+                    state.error = payload
+                },
+            })
     }    
 })
 
 export const {
-    regis,
-    updateUsers,
+    logoutUser,
     changePassword,
     resetErrorAndMassage
 } = usersSlice.actions

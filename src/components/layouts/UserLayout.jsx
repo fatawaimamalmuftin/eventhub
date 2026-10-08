@@ -8,7 +8,7 @@ export default function UserLayout() {
     
     // const {username} = useParams()
 
-    const user = useSelector((state) => state.userState.user)
+    const user = useSelector((state) => state.usersState.userLogind)
 
     const admin = UseGetItem("admin","null")
 

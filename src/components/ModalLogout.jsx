@@ -1,16 +1,13 @@
 import { useDispatch, useSelector } from "react-redux"
-import { logout } from '../Redux/slice/userSlice.js'
+// import { logout } from '../Redux/slice/userSlice.js'
 import { Link } from "react-router"
-import { updateUsers } from '../Redux/slice/usersSlice.js'
+import { LogoutThunk, logoutUser } from "../Redux/slice/usersSlice.js"
+// import { updateUsers } from '../Redux/slice/usersSlice.js'
 
 export default function ModalLogout({ show, setShow, admin = null, setAdmin = null, comunities = null, setComunities = null }) {
 
     const userLogind = useSelector(
-        (state) => state.userState.user
-    )
-
-    const users = useSelector(
-        (state) => state.usersState.users
+        (state) => state.usersState.userLogind
     )
 
     const dispatch = useDispatch()
@@ -30,29 +27,6 @@ export default function ModalLogout({ show, setShow, admin = null, setAdmin = nu
             window.location.reload()
             return
         }
-
-        // const dataLocal = JSON.parse(localStorage.getItem("users") || "[]")
-
-        const setData = users.map((user) => {
-
-            if (user.id === userLogind.id) {
-
-                return {
-                    ...user,
-                    profile: userLogind.profile,
-                    location: userLogind.location,
-                    bio: userLogind.bio,
-                    cart: userLogind.cart,
-                    update_at: new Date().toISOString()
-                }
-            }
-            return user
-        })
-
-        // localStorage.setItem("users",JSON.stringify(setData))
-
-        dispatch(updateUsers(setData))
-        dispatch(logout())
     }
 
     return (
@@ -62,12 +36,12 @@ export default function ModalLogout({ show, setShow, admin = null, setAdmin = nu
                 <div className="veryCenter px-4">
                         {userLogind.profile === "" ? (
                             <div className="w-10 h-10 bg-orangeFigma text-white rounded-full overflow-hidden veryCenter text-2xl">
-                                {userLogind.fullName[0].toUpperCase()}
+                                {userLogind.full_name[0].toUpperCase()}
                             </div>
                         ) : ( 
                             <div className="w-10 h-10 rounded-full overflow-hidden">
                                 <img
-                                    src={userLogind.profile}
+                                    src={"http://localhost:5678" + userLogind.profile}
                                     alt="Profile"
                                     className="w-full h-full object-cover"
                                     />
@@ -76,7 +50,7 @@ export default function ModalLogout({ show, setShow, admin = null, setAdmin = nu
                     <div className="px-4 py-5">
 
                         <div className="text-2xl font-semibold whitespace-nowrap">
-                            {userLogind.fullName}
+                            {userLogind.full_name}
                         </div>
 
                         <div className="text-lg text-gray-400">
@@ -105,7 +79,10 @@ export default function ModalLogout({ show, setShow, admin = null, setAdmin = nu
 
             <button
                 className="w-full border-t border-gray-200 px-7 py-5 text-left text-xl text-red-500 hover:bg-red-300 hover:text-white cursor-pointer"
-                onClick={handleLogout}
+                onClick={() => {
+                    dispatch(LogoutThunk(userLogind.token))
+                    dispatch(logoutUser())
+                }}
             >
                 Sign Out
             </button>

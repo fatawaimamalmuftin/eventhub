@@ -1,20 +1,22 @@
-import { useDispatch, useSelector } from "react-redux"
+// import { useDispatch } from "react-redux"
 import { IoPencilOutline } from "react-icons/io5";
 import { MdLocationPin } from "react-icons/md";
 import { useState } from "react";
-import CardEvent from '../../components/CardEvent.jsx'
+// import CardEvent from '../../components/CardEvent.jsx'
 import { CiCalendar } from "react-icons/ci";
 import ModalEditProfile from "../../components/ModalEditProfile.jsx";
-import { editProfile } from "../../Redux/slice/userSlice.js";
+// import { editProfile } from "../../Redux/slice/userSlice.js";
 import MchangePass from "../../components/MchangePass.jsx";
 import { ToastContainer } from "react-toastify";
+import { useSelector } from "react-redux";
 
 export default function MyProfile() {
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     const userLogind = useSelector(
-        (state) => state.userState.user
+        (state) => state.usersState.userLogind
     )
+    console.log(userLogind)
 
     const [show, setShow] = useState("events")
     const [showModal, setShowModal] = useState(false)
@@ -32,14 +34,14 @@ export default function MyProfile() {
                     <label className="block w-full h-full">
                         {userLogind?.profile ? (
                         <img
-                            src={userLogind.profile}
+                            src={"http://localhost:5678"+userLogind.profile}
                             alt="Profile"
                             className="w-full h-full object-cover"
-                            onError={() => {
-                                dispatch(editProfile({
-                                    profile: null
-                                }))
-                            }}
+                            // onError={() => {
+                            //     dispatch(editProfile({
+                            //         profile: null
+                            //     }))
+                            // }}
                         />
                     ) : (
                         <div className="w-full h-full bg-gray-50 veryCenter flex-col gap-2 text-gray-400">
@@ -51,13 +53,13 @@ export default function MyProfile() {
                                 Upload photo
                             </div>
                         </div>
-                    )}
+                     )}
                     </label>
                 </div>
 
                 <div className="relative">
                     <div className="font-bold text-lg sm:text-xl md:text-2xl">
-                        {userLogind.fullName}
+                        {userLogind.full_name}
                     </div>
 
                     <div className="text-gray-500 text-xs sm:text-base md:text-xl">
@@ -99,7 +101,7 @@ export default function MyProfile() {
                     </div>
 
 
-                    <div className="text-xl text-gray-500 mt-2">
+                    <div className="text-xl text-gray-500 mt-5">
                         {userLogind?.bio}
                     </div>
                 </div>
@@ -109,7 +111,7 @@ export default function MyProfile() {
 
                 <div className="flex flex-col justify-center items-center border-r border-gray-200">
                     <div className="text-xl sm:text-2xl">
-                        {userLogind.cart.length}
+                        {/* {userLogind.cart.length} */}0
                     </div>
 
                     <div className="text-gray-500 text-[10px] sm:text-sm">
@@ -189,7 +191,7 @@ export default function MyProfile() {
         </main>
 
 
-        {show === "events" &&
+        {/* {show === "events" &&
             <article className="grid grid-cols-1 md:grid-cols-2 gap-5 px-3 sm:px-8 md:px-20 lg:px-70">
 
                 {userLogind.cart.map((e,i)=>(
@@ -197,10 +199,10 @@ export default function MyProfile() {
                 ))}
 
             </article>
-        }
+        } */}
 
 
-        {show === "events" && userLogind.cart.length === 0 &&
+        {/* {show === "events" && userLogind.cart.length === 0 &&
             <div className="w-full text-center p-10 sm:p-20 text-lg sm:text-2xl text-gray-500">
                 No events. Bookmark events to find them later.
             </div>
@@ -218,7 +220,7 @@ export default function MyProfile() {
             <div className="w-full text-center p-10 sm:p-20 text-lg sm:text-2xl text-gray-500">
                 No saved events. Bookmark events to find them later.
             </div>
-        }
+        } */}
 
         <ToastContainer position="top-center"/>
     </>
